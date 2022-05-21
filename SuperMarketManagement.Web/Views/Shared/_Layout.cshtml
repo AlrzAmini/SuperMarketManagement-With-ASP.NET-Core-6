@@ -1,49 +1,21 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<html lang="fa" dir="rtl">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SuperMarketManagement.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SuperMarketManagement.Web.styles.css" asp-append-version="true" />
+    <partial name="Partials/_MetaTags" />
+    <title>@ViewData["Title"]</title>
+    <partial name="Partials/_Styles" />
+    @await RenderSectionAsync("Styles", false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SuperMarketManagement.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            @await Component.InvokeAsync("AdminSideBarComponent")
+            @await Component.InvokeAsync("HeaderComponent")
             @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - SuperMarketManagement.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </div>
+    <partial name="Partials/_LockScreen" />
+    <partial name="Partials/_Scripts" />
+    @await RenderSectionAsync("Scripts", false)
+    <div class="jqvmap-label d-none"></div><div class="daterangepicker dropdown-menu ltr opensright"><div class="ranges"><ul><li data-range-key="امروز">امروز</li><li data-range-key="دیروز">دیروز</li><li data-range-key="۷ روز قبل">۷ روز قبل</li><li data-range-key="۳۰ روز قبل">۳۰ روز قبل</li><li data-range-key="این ماه">این ماه</li><li data-range-key="ماه قبل">ماه قبل</li><li data-range-key="شخصی شده">شخصی شده</li></ul><div class="range_inputs"><button class="applyBtn btn btn-default btn-small btn-primary" disabled="disabled" type="button">ارسال</button> <button class="cancelBtn btn btn-default btn-small" type="button">پاک کردن</button></div></div><div class="calendar left"><div class="daterangepicker_input"><input class="input-mini form-control" type="text" name="daterangepicker_start" value=""><i class="fa fa-calendar glyphicon glyphicon-calendar"></i><div class="calendar-time" style="display: none;"><div></div><i class="fa fa-clock-o glyphicon glyphicon-time"></i></div></div><div class="calendar-table"></div></div><div class="calendar right"><div class="daterangepicker_input"><input class="input-mini form-control" type="text" name="daterangepicker_end" value=""><i class="fa fa-calendar glyphicon glyphicon-calendar"></i><div class="calendar-time" style="display: none;"><div></div><i class="fa fa-clock-o glyphicon glyphicon-time"></i></div></div><div class="calendar-table"></div></div></div>
 </body>
 </html>

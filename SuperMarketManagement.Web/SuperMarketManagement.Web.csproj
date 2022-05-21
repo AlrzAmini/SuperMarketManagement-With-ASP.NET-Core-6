@@ -6,4 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\vendors\Chart.js\.github\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\vendors\Chart.js\.github\PULL_REQUEST_TEMPLATE.md" />
+    <None Include="wwwroot\vendors\echarts\.github\CONTRIBUTING.md" />
+    <None Include="wwwroot\vendors\echarts\.github\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+
 </Project>
