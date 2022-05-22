@@ -13,4 +13,9 @@
     <None Include="wwwroot\vendors\echarts\.github\ISSUE_TEMPLATE.md" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>

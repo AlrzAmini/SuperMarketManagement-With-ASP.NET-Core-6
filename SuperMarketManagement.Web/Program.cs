@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
+
 namespace SuperMarketManagement.Web
 {
     public class Program
@@ -7,15 +10,45 @@ namespace SuperMarketManagement.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            #region services
+
+            #region mvc
+
             builder.Services.AddControllersWithViews();
+
+            #endregion
+
+            #region Authentication
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
+            });
+
+            builder.Services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory() + "\\wwwroot\\AuthorizeFile\\"))
+                .SetApplicationName("SuperMarketManagement")
+                .SetDefaultKeyLifetime(TimeSpan.FromMinutes(43200));
+
+            #endregion
+
+            #endregion
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            #region pipelines and middlewares
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -31,6 +64,8 @@ namespace SuperMarketManagement.Web
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+            #endregion
         }
     }
 }
