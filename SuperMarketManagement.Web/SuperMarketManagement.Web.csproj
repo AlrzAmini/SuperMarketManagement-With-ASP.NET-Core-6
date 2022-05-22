@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SuperMarketManagement.Application\SuperMarketManagement.Application.csproj" />
     <ProjectReference Include="..\SuperMarketManagement.Data\SuperMarketManagement.Data.csproj" />
     <ProjectReference Include="..\SuperMarketManagement.Domain\SuperMarketManagement.Domain.csproj" />
   </ItemGroup>

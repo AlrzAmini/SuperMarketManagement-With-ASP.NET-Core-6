@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using SuperMarketManagement.Application.Interfaces.User;
+using SuperMarketManagement.Application.Services.User;
 using SuperMarketManagement.Data.Context;
+using SuperMarketManagement.Data.Repositories.User;
+using SuperMarketManagement.Domain.Interfaces.User;
 
 namespace SuperMarketManagement.Web
 {
@@ -54,6 +58,17 @@ namespace SuperMarketManagement.Web
                 option.UseSqlServer(connectionString);
 
             });
+
+            #endregion
+
+            #region IoC
+
+            #region user
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            #endregion
 
             #endregion
 
