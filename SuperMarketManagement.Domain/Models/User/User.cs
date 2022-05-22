@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperMarketManagement.Domain.Models.User
 {
@@ -14,8 +9,9 @@ namespace SuperMarketManagement.Domain.Models.User
 
         public User()
         {
-            Address = "Default";
+            Address = "بدون آدرس";
             RegisterDate = DateTime.Now;
+            UserRole = UserRole.Customer;
         }
 
         #endregion
@@ -34,7 +30,10 @@ namespace SuperMarketManagement.Domain.Models.User
         [MaxLength(700, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر داشته باشد")]
         public string Address { get; set; }
 
+        [DisplayName("تاریخ ثبت نام")]
         public DateTime RegisterDate { get; set; }
+
+        public UserRole UserRole { get; set; }
 
         #endregion
 
