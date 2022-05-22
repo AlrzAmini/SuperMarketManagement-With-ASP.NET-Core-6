@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
+using SuperMarketManagement.Data.Context;
 
 namespace SuperMarketManagement.Web
 {
@@ -36,6 +38,22 @@ namespace SuperMarketManagement.Web
                 .PersistKeysToFileSystem(new DirectoryInfo(Directory.GetCurrentDirectory() + "\\wwwroot\\AuthorizeFile\\"))
                 .SetApplicationName("SuperMarketManagement")
                 .SetDefaultKeyLifetime(TimeSpan.FromMinutes(43200));
+
+            #endregion
+
+            #region Context
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+            var connectionString = configuration.GetConnectionString("SuperMarketDBConnection");
+
+            builder.Services.AddDbContext<SuperMarketDbContext>(option =>
+            {
+                option.UseSqlServer(connectionString);
+
+            });
 
             #endregion
 
