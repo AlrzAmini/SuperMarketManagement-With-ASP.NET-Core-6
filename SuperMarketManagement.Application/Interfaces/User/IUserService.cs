@@ -15,6 +15,10 @@ namespace SuperMarketManagement.Application.Interfaces.User
 
         Task<bool> DeleteUser(int userId);
 
-        Task<Domain.Models.User.User> GetUserById(int userId);
+        Task<Domain.Models.User.User?> GetUserById(int userId);
+
+        Task<List<Domain.Models.User.User>> GetAllUsers();
+        
+        Task<List<UserInfo>> GetAllUsersInfos();
     }
 }

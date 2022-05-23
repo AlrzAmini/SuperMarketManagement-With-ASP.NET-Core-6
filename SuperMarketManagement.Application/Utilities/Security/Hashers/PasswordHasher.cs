@@ -48,7 +48,12 @@ namespace SuperMarketManagement.Application.Utilities.Security.Hashers
         {
             return Argon2.Hash(password);
         }
-        
+
+        public static bool VerifyAragon2(string password, string hash)
+        {
+            return Argon2.Verify(password, hash);
+        }
+
         #endregion
     }
 }

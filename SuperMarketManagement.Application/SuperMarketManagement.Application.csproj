@@ -17,4 +17,8 @@
     <ProjectReference Include="..\SuperMarketManagement.Domain\SuperMarketManagement.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utilities\Generators\" />
+  </ItemGroup>
+
 </Project>

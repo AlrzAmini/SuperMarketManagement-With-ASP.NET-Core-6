@@ -12,6 +12,7 @@ namespace SuperMarketManagement.Domain.Models.User
             Address = "بدون آدرس";
             RegisterDate = DateTime.Now;
             UserRole = UserRole.Customer;
+            Password = "123456";
         }
 
         #endregion

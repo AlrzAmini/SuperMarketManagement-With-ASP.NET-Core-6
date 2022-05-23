@@ -26,24 +26,59 @@ namespace SuperMarketManagement.Application.Services.User
             {
                 UserName = createUserDto.UserName?.Sanitize(),
                 Address = createUserDto.Address.Sanitize(),
-                Password = PasswordHasher.HashWithMd5(createUserDto.Password)
-                UserRole = createUserDto.UserRole,
+                Password = PasswordHasher.HashWithAragon2(createUserDto.Password),
+                UserRole = createUserDto.UserRole
             };
+            return await _userRepository.AddUser(user);
         }
 
         public async Task<bool> EditUser(EditUserDto editUserDto)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUserById(editUserDto.UserId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.UserName = editUserDto.UserName?.Sanitize();
+            user.Address = editUserDto.Address.Sanitize();
+            user.UserRole = editUserDto.UserRole;
+            
+            return await _userRepository.UpdateUser(user);
         }
 
         public async Task<bool> DeleteUser(int userId)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUserById(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            return await _userRepository.DeleteUser(user);
         }
 
-        public async Task<Domain.Models.User.User> GetUserById(int userId)
+        public async Task<Domain.Models.User.User?> GetUserById(int userId)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetUserById(userId);
+        }
+
+        public async Task<List<Domain.Models.User.User>> GetAllUsers()
+        {
+            return await _userRepository.GetAllUsers();
+        }
+
+        public async Task<List<UserInfo>> GetAllUsersInfos()
+        {
+            var users = await _userRepository.GetAllUsersQueryable();
+            return users.Select(user => new UserInfo
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Address = user.Address,
+                UserRole = user.UserRole,
+                RegisterDate = user.RegisterDate
+            }).ToList();
         }
     }
 }

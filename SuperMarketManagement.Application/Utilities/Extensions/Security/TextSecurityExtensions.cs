@@ -14,5 +14,15 @@ namespace SuperMarketManagement.Application.Utilities.Extensions.Security
             var htmlSanitizer = new HtmlSanitizer();
             return htmlSanitizer.Sanitize(input);
         }
+        public static string? SanitizeNullable(this string? input)
+        {
+            if (input == null)
+            {
+                return null;
+            }
+            
+            var htmlSanitizer = new HtmlSanitizer();
+            return htmlSanitizer.Sanitize(input);
+        }
     }
 }
