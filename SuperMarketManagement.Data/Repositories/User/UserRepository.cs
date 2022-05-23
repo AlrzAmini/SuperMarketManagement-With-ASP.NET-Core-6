@@ -16,5 +16,45 @@ namespace SuperMarketManagement.Data.Repositories.User
         {
             _context = context;
         }
+
+        public async Task<bool> AddUser(Domain.Models.User.User user)
+        {
+            try
+            {
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteUser(Domain.Models.User.User user)
+        {
+            user.IsDelete = true;
+            return await UpdateUser(user);            
+        }
+
+        public async Task<Domain.Models.User.User> GetUserById(int userId)
+        {
+            //not matter if method returns null because we control it in service layer
+            return await _context.Users.FindAsync(userId);
+        }
+
+        public async Task<bool> UpdateUser(Domain.Models.User.User user)
+        {
+            try
+            {
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

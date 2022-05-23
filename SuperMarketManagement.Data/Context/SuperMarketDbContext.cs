@@ -23,5 +23,22 @@ namespace SuperMarketManagement.Data.Context
         public DbSet<User> Users { get; set; }
 
         #endregion
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var rel in modelBuilder.Model.GetEntityTypes().SelectMany(s => s.GetForeignKeys()))
+            {
+                rel.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            #region query filters
+
+            modelBuilder.Entity<User>()
+                .HasQueryFilter(e => !e.IsDelete);
+
+            #endregion
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
