@@ -1,10 +1,73 @@
-﻿@model List<SuperMarketManagement.Application.DTOs.User.UserInfo>
+﻿@using SuperMarketManagement.Application.Utilities.Extensions.Date
+@using SuperMarketManagement.Application.Utilities.Extensions.Common
+@model List<SuperMarketManagement.Application.DTOs.User.UserInfo>
 @{
     ViewData["Title"] = "کاربران";
 }
-
-<h1>Index.casfvasdvoih</h1>
-@foreach (var item in Model)
-{
-    <h2>@item.UserName</h2>
-}
+<div class="title_left">
+    <div class="col-md-12">
+        <h2>
+            مدیریت کاربران
+        </h2>
+    </div>
+</div>
+<div class="col-md-8 col-sm-8 col-xs-12">
+    @if (Model.Any())
+    {
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    لیست کاربران
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>کد اشتراک</th>
+                        <th>نام</th>
+                        <th>آدرس</th>
+                        <th>تاریخ ثبت نام</th>
+                        <th>نقش</th>
+                        <th>دستورات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <th scope="row">@user.UserId</th>
+                            <td>@user.UserName</td>
+                            <td>@user.Address</td>
+                            <td>@user.RegisterDate.ToShamsi()</td>
+                            <td>@user.UserRole.GetEnumName()</td>
+                            <td>
+                                <a class="btn btn-info"><i class="fa fa-info"></i></a>
+                                <a class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button>
+            <strong>کاربری ثبت نشده!</strong> هنوز کاربری را ثبت نکرده اید
+        </div>
+    }
+</div>
