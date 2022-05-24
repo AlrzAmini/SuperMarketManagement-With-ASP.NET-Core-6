@@ -18,7 +18,6 @@ namespace SuperMarketManagement.Web.Controllers
 
         #endregion
         
-        //TODO  : Create View
         public async Task<IActionResult> Index()
         {
             var users = await _userService.GetAllUsersInfos();
