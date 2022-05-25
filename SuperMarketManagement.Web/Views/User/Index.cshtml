@@ -4,27 +4,69 @@
 @{
     ViewData["Title"] = "کاربران";
 }
-<div class="title_left">
-    <div class="col-md-8">
-        <h2>
-            مدیریت کاربران
-        </h2>
+
+@section Scripts
+    {
+    <script>
+        function DeleteUserSwal(userId) {
+            Swal.fire({
+                text: "آیا مطمئن هستید؟",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'بله',
+                cancelButtonText: 'خیر'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteUser(userId);
+                }
+            });
+        }
+
+        function deleteUser(id) {
+            var userUri = "/user/del/" + id;
+
+            fetch(userUri, {
+                method: 'post'
+            }).then(function(response) {
+                if (response.status !== 200) {
+                    location.reload();
+                }
+
+                response.json().then(function() {
+                    location.reload();
+                });
+            }).catch(function(err) {
+                console.log(`error: ${err}`);
+            });
+        };
+
+
+
+    </script>
+}
+    <div class="title_left">
+        <div class="col-md-8">
+            <h2>
+                مدیریت کاربران
+            </h2>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-success btn-block" asp-controller="User" asp-action="AddUser">
+                افزودن کاربر
+            </a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <a class="btn btn-success btn-block" asp-controller="User" asp-action="AddUser">
-            افزودن کاربر
-        </a>
-    </div>
-</div>
-<div class="col-md-8 col-sm-8 col-xs-12">
-    @if (Model.Any())
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        @if (Model.Any())
     {
         <div class="x_panel">
             <div class="x_title">
                 <h2>
                     لیست کاربران
                 </h2>
-                <partial name="Partials/_PanelToolBox"/>
+                <partial name="Partials/_PanelToolBox" />
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -51,19 +93,21 @@
                             <td>
                                 <a class="btn btn-info"><i class="fa fa-info"></i></a>
                                 <a class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                <a onclick="DeleteUserSwal(@user.UserId)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     }
                     </tbody>
                 </table>
             </div>
+            <partial name="Partials/_Paging" model="Model."/>
         </div>
     }
     else
     {
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
             </button>
             <strong>کاربری ثبت نشده!</strong> هنوز کاربری را ثبت نکرده اید
         </div>

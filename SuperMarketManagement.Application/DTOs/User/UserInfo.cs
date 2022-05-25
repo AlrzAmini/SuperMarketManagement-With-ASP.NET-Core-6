@@ -1,9 +1,11 @@
 ﻿
 
+using SuperMarketManagement.Application.DTOs.Paging;
 using SuperMarketManagement.Domain.Models.User;
 
 namespace SuperMarketManagement.Application.DTOs.User
 {
+    //TODO : paging and filter users
     public class UserInfo
     {
         #region properties
@@ -19,5 +21,7 @@ namespace SuperMarketManagement.Application.DTOs.User
         public UserRole UserRole { get; set; }
 
         #endregion
+        
+        
     }
 }

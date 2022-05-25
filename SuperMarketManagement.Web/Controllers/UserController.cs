@@ -47,8 +47,7 @@ namespace SuperMarketManagement.Web.Controllers
 
             if (await _userService.CreateUser(userDto))
             {
-                //TempData[SuccessToast] = "با موفقیت ثبت شد";
-                TempData[SuccessMessage] = "با موفقیت ثبت شد";
+                TempData[SuccessToast] = "با موفقیت ثبت شد";
                 return RedirectToAction("Index");
             }
             
@@ -72,7 +71,19 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region delete
 
+        [HttpPost("del/{userId}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            var res = await _userService.DeleteUser(userId);
+            if (res)
+            {
+                TempData[SuccessToast] = "با موفقیت حذف شد";
+                return Ok(res);
+            }
 
+            TempData[ErrorToast] = "خطایی در حذف کاربر رخ داد";
+            return BadRequest(res);
+        }
 
         #endregion
     }

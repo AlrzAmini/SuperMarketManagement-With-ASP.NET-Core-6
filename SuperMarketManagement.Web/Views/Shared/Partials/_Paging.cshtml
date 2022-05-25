@@ -1,0 +1,24 @@
+﻿@model SuperMarketManagement.Application.DTOs.Paging.BasePaging
+
+<div class="dataTables_paginate paging_simple_numbers" id="datatable-buttons_paginate">
+    <ul class="pagination">
+        @if (Model.StartPage < Model.PageNum)
+        {
+            <li class="paginate_button previous disabled" id="datatable-buttons_previous">
+                <a onclick="FillPageNum(@(Model.PageNum-1))" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">قبلی</a>
+            </li>
+        }
+        @for (var i = Model.StartPage; i <= Model.EndPage; i++)
+        {
+            <li class="paginate_button @(Model.PageNum == i ? "active" : "")">
+                <a href="#" onclick="FillPageNum(@i)" aria-controls="datatable-buttons" data-dt-idx="1" tabindex="0">@i</a>
+            </li>
+        }
+        @if (Model.EndPage > Model.PageNum)
+        {
+            <li class="paginate_button previous disabled" id="datatable-buttons_previous">
+                <a onclick="FillPageNum(@(Model.PageNum-1))" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">قبلی</a>
+            </li>
+        }
+    </ul>
+</div>

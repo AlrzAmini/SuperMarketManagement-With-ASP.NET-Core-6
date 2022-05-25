@@ -27,3 +27,9 @@ function ShowToast(title, icon) {
         title: title
     });
 }
+
+/*Paging*/
+function FillPageNum(pageNum) {
+    $("#PageNum").val(pageNum);
+    $("#filterForm").submit();
+}

@@ -4,10 +4,8 @@ namespace SuperMarketManagement.Domain.Models.User;
 
 public enum UserRole
 {
+    [Display(Name = "مشتری")]
+    Customer,
     [Display(Name = "مدیر")]
     Manager,
-    [Display(Name = "فروشنده")]
-    Seller,
-    [Display(Name = "مشتری")]
-    Customer
 }

@@ -24,7 +24,7 @@ namespace SuperMarketManagement.Application.Services.User
         {
             var user = new Domain.Models.User.User
             {
-                UserName = createUserDto.UserName?.Sanitize(),
+                UserName = createUserDto.UserName.Sanitize(),
                 Address = createUserDto.Address.Sanitize(),
                 Password = PasswordHasher.HashWithAragon2(createUserDto.Password),
                 UserRole = createUserDto.UserRole
