@@ -27,8 +27,7 @@ namespace SuperMarketManagement.Application.DTOs.User
         public UserRole UserRole { get; set; }
 
         [DisplayName("رمز عبور")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         #endregion
     }

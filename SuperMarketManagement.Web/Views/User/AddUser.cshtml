@@ -1,0 +1,76 @@
+﻿@using SuperMarketManagement.Domain.Models.User
+@model SuperMarketManagement.Application.DTOs.User.CreateUserDto
+@{
+    ViewData["Title"] = "افزودن کاربر";
+}
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}
+<div class="page-title">
+    <div class="title_left">
+        <h3>افزودن کاربر</h3>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>افزودن کاربر جدید
+                        </h2>
+                        <partial name="Partials/_PanelToolBox"/>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                        <form asp-controller="User" asp-action="AddUser" method="post" id="demo-form2" class="form-horizontal form-label-left">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">نام
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input asp-for="UserName" id="name"  class="form-control col-md-7 col-xs-12">
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">رمز عبور
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="password" asp-for="Password" id="password" class="form-control col-md-7 col-xs-12">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">آدرس
+                                     <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea asp-for="Address" id="address" class="form-control col-md-7 col-xs-12"></textarea>
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">نقش کاربر
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select asp-for="UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" id="heard" class="form-control" >
+                                    </select>
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-success">ثبت کاربر</button>
+                                    <button onclick="window.history.go(-1);" class="btn btn-link">انصراف</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>

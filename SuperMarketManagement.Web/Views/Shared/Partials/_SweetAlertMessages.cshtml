@@ -1,0 +1,66 @@
+﻿@{
+    if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowSwal(' موفق ', '@TempData["SuccessMessage"]', 'success');
+            });
+        </script>
+    }
+    if (TempData["InfoMessage"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowSwal('اطلاعیه', '@TempData["InfoMessage"]', 'info');
+            });
+        </script>
+    }
+    if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowSwal('خطا', '@TempData["ErrorMessage"]', 'error');
+            });
+        </script>
+    }
+    if (TempData["WarningMessage"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowSwal('توجه', '@TempData["WarningMessage"]', 'warning');
+            });
+        </script>
+    }
+    if (TempData["SuccessToast"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowToast('@TempData["SuccessToast"]', 'success');
+            });
+        </script>
+    }
+    if (TempData["InfoToast"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowToast('@TempData["InfoToast"]', 'info');
+            });
+        </script>
+    }
+    if (TempData["ErrorToast"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowToast('@TempData["ErrorToast"]', 'error');
+            });
+        </script>
+    }
+    if (TempData["WarningToast"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowToast('@TempData["WarningToast"]', 'warning');
+            });
+        </script>
+    }
+}

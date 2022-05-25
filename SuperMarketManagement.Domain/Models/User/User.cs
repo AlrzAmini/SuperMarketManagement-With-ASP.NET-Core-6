@@ -33,7 +33,7 @@ namespace SuperMarketManagement.Domain.Models.User
 
         [DisplayName("رمز عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [DisplayName("تاریخ ثبت نام")]
         public DateTime RegisterDate { get; set; }

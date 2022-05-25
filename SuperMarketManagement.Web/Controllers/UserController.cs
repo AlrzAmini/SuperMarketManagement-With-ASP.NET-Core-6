@@ -5,7 +5,8 @@ using SuperMarketManagement.Domain.Models.User;
 
 namespace SuperMarketManagement.Web.Controllers
 {
-    public class UserController : Controller
+    [Route("user")]
+    public class UserController : BaseController
     {
         #region constructor
 
@@ -17,11 +18,62 @@ namespace SuperMarketManagement.Web.Controllers
         }
 
         #endregion
-        
+
+        #region index
+
         public async Task<IActionResult> Index()
         {
             var users = await _userService.GetAllUsersInfos();
             return View(users);
         }
+
+        #endregion
+
+        #region add
+
+        [HttpGet("add")]
+        public IActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddUser(CreateUserDto userDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userDto);
+            }
+
+            if (await _userService.CreateUser(userDto))
+            {
+                //TempData[SuccessToast] = "با موفقیت ثبت شد";
+                TempData[SuccessMessage] = "با موفقیت ثبت شد";
+                return RedirectToAction("Index");
+            }
+            
+            TempData[ErrorToast] = "خطایی در ثبت کاربر رخ داد";
+            return View();
+        }
+
+        #endregion
+
+        #region detail
+
+
+
+        #endregion
+
+        #region edit
+
+
+
+        #endregion
+
+        #region delete
+
+
+
+        #endregion
     }
 }

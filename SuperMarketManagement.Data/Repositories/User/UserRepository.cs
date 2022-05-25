@@ -68,7 +68,7 @@ namespace SuperMarketManagement.Data.Repositories.User
             // in the service we do select in this queryable
             // so we need lazy loading
             // in this way we just have to call .ToList() just once
-            return await Task.FromResult(_context.Users.AsQueryable());
+            return await Task.FromResult(_context.Users.AsQueryable().OrderByDescending(u=>u.UserId));
         }
     }
 }

@@ -29,7 +29,9 @@
     </div>
     <partial name="Partials/_LockScreen" />
     <partial name="Partials/_Scripts" />
+
     @await RenderSectionAsync("Scripts", false)
+    <partial name="Partials/_SweetAlertMessages" />
     <div class="jqvmap-label d-none"></div>
     <div class="daterangepicker dropdown-menu ltr opensright">
         <div class="ranges">

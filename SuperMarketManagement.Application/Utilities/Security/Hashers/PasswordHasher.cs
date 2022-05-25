@@ -44,9 +44,9 @@ namespace SuperMarketManagement.Application.Utilities.Security.Hashers
         // must install Isopoh.Cryptography.Argon2 in nuget packages
         #region aragon 2
 
-        public static string HashWithAragon2(string password)
+        public static string HashWithAragon2(string? password)
         {
-            return Argon2.Hash(password);
+            return string.IsNullOrEmpty(password) ? "" : Argon2.Hash(password);
         }
 
         public static bool VerifyAragon2(string password, string hash)
