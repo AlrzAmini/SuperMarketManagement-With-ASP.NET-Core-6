@@ -1,6 +1,6 @@
 ﻿@using SuperMarketManagement.Application.Utilities.Extensions.Date
 @using SuperMarketManagement.Application.Utilities.Extensions.Common
-@model List<SuperMarketManagement.Application.DTOs.User.UserInfo>
+@model SuperMarketManagement.Application.DTOs.User.FilterUsersDto
 @{
     ViewData["Title"] = "کاربران";
 }
@@ -58,8 +58,8 @@
             </a>
         </div>
     </div>
-    <div class="col-md-8 col-sm-8 col-xs-12">
-        @if (Model.Any())
+<div class="col-md-8 col-sm-8 col-xs-12">
+    @if (Model.Users.Any())
     {
         <div class="x_panel">
             <div class="x_title">
@@ -82,7 +82,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var user in Model.Users)
                     {
                         <tr>
                             <th scope="row">@user.UserId</th>
@@ -100,7 +100,7 @@
                     </tbody>
                 </table>
             </div>
-            <partial name="Partials/_Paging" model="Model."/>
+            <partial name="Partials/_Paging" model="Model.GetCurrentPaging()" />
         </div>
     }
     else
@@ -112,4 +112,9 @@
             <strong>کاربری ثبت نشده!</strong> هنوز کاربری را ثبت نکرده اید
         </div>
     }
+</div>
+<div>
+    <form asp-controller="User" asp-action="Index" id="filterForm">
+        <input type="hidden" asp-for="PageNum"/>
+    </form>
 </div>

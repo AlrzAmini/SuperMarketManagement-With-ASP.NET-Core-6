@@ -4,8 +4,8 @@
     <ul class="pagination">
         @if (Model.StartPage < Model.PageNum)
         {
-            <li class="paginate_button previous disabled" id="datatable-buttons_previous">
-                <a onclick="FillPageNum(@(Model.PageNum-1))" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">قبلی</a>
+            <li class="paginate_button previous" id="datatable-buttons_previous">
+                <a class="cursor-pointer" onclick="FillPageNum(@(Model.PageNum-1))" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">قبلی</a>
             </li>
         }
         @for (var i = Model.StartPage; i <= Model.EndPage; i++)
@@ -16,8 +16,8 @@
         }
         @if (Model.EndPage > Model.PageNum)
         {
-            <li class="paginate_button previous disabled" id="datatable-buttons_previous">
-                <a onclick="FillPageNum(@(Model.PageNum-1))" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">قبلی</a>
+            <li class="paginate_button next cursor-pointer" id="datatable-buttons_previous">
+                <a class="cursor-pointer" onclick="FillPageNum(@(Model.PageNum+1))" aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">بعدی</a>
             </li>
         }
     </ul>

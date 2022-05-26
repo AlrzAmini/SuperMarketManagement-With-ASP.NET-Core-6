@@ -1,7 +1,4 @@
-﻿
-
-using SuperMarketManagement.Application.DTOs.Paging;
-using SuperMarketManagement.Domain.Models.User;
+﻿using SuperMarketManagement.Domain.Models.User;
 
 namespace SuperMarketManagement.Application.DTOs.User
 {
@@ -14,14 +11,12 @@ namespace SuperMarketManagement.Application.DTOs.User
         
         public string? UserName { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         public DateTime RegisterDate { get; set; }
 
         public UserRole UserRole { get; set; }
 
         #endregion
-        
-        
     }
 }

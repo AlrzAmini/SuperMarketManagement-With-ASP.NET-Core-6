@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SuperMarketManagement.Application.DTOs.Paging;
 using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
 using SuperMarketManagement.Application.Utilities.Extensions.Security;
@@ -79,6 +80,37 @@ namespace SuperMarketManagement.Application.Services.User
                 UserRole = user.UserRole,
                 RegisterDate = user.RegisterDate
             }).ToList();
+        }
+
+        public async Task<FilterUsersDto> FilterUsers(FilterUsersDto filter)
+        {
+            var result = await _userRepository.GetAllUsersQueryable();
+
+            // filter by role
+            if (filter.UserRole != null)
+            {
+                result = result.Where(r => r.UserRole == filter.UserRole.Value);
+            }
+
+            //filter by user name
+            if (!string.IsNullOrEmpty(filter.UserName))
+            {
+                result = result.Where(r => r.UserName != null && r.UserName.Contains(filter.UserName));
+            }
+
+            //paging
+            var pager = Pager.Build(filter.PageNum, result.Count(), filter.Take, filter.PageCountAfterAndBefore);
+            var users = result.Paging(pager)
+                .Select(user => new UserInfo
+                {
+                    UserId = user.UserId,
+                    UserName = user.UserName,
+                    Address = user.Address,
+                    UserRole = user.UserRole,
+                    RegisterDate = user.RegisterDate
+                }).ToList();
+
+            return filter.SetPaging(pager).SetEntities(users);
         }
     }
 }

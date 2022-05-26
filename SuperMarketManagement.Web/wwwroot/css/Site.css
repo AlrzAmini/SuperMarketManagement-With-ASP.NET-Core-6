@@ -57,3 +57,11 @@
     -webkit-box-shadow: unset !important;
     box-shadow: unset !important;
 }
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+.swal-wide {
+    width: 500px !important;
+}

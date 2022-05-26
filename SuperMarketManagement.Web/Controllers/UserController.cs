@@ -21,10 +21,10 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region index
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(FilterUsersDto filter)
         {
-            var users = await _userService.GetAllUsersInfos();
-            return View(users);
+            var model = await _userService.FilterUsers(filter);
+            return View(model);
         }
 
         #endregion

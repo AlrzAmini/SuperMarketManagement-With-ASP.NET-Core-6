@@ -20,5 +20,7 @@ namespace SuperMarketManagement.Application.Interfaces.User
         Task<List<Domain.Models.User.User>> GetAllUsers();
         
         Task<List<UserInfo>> GetAllUsersInfos();
+
+        Task<FilterUsersDto> FilterUsers(FilterUsersDto filter);
     }
 }

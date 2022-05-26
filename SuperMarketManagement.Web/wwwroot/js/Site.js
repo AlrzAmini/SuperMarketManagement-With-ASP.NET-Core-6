@@ -9,11 +9,13 @@
 }
 
 function ShowToast(title, icon) {
-    event.preventDefault();
     var Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
+        customClass: {
+            popup: 'swal-wide'
+        },
         timer: 5000,
         timerProgressBar: true,
         didOpen: (toast) => {
