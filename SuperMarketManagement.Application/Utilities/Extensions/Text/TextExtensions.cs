@@ -10,9 +10,14 @@ namespace SuperMarketManagement.Application.Utilities.Extensions.Text
             return res + " ... ";
         }
 
-        public static string NameFixerForUrl(this string str)
+        public static string FixForUrl(this string str)
         {
             return str.Replace(" ", "-");
+        }
+
+        public static string FixForAddress(this string address)
+        {
+            return string.IsNullOrEmpty(address) ? "" : address.Replace(" ", " - ");
         }
 
         public static bool IsAllCharEnglish(this string input)

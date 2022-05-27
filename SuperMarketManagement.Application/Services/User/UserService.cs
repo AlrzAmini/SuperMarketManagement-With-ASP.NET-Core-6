@@ -44,7 +44,7 @@ namespace SuperMarketManagement.Application.Services.User
             user.UserName = editUserDto.UserName?.Sanitize();
             user.Address = editUserDto.Address.Sanitize();
             user.UserRole = editUserDto.UserRole;
-            
+
             return await _userRepository.UpdateUser(user);
         }
 
@@ -63,6 +63,25 @@ namespace SuperMarketManagement.Application.Services.User
         {
             return await _userRepository.GetUserById(userId);
         }
+
+        public async Task<UserInfo?> GetUserInfoById(int userId)
+        {
+            var user = await _userRepository.GetUserById(userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserInfo
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Address = user.Address,
+                UserRole = user.UserRole,
+                RegisterDate = user.RegisterDate
+            };
+        }
+
 
         public async Task<List<Domain.Models.User.User>> GetAllUsers()
         {

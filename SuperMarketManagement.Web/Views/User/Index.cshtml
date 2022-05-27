@@ -91,7 +91,7 @@
                             <td>@user.RegisterDate.ToShamsi()</td>
                             <td>@user.UserRole.GetEnumName()</td>
                             <td>
-                                <a class="btn btn-info"><i class="fa fa-info"></i></a>
+                                <a asp-controller="User" asp-action="Detail" asp-route-userId="@user.UserId" class="btn btn-info"><i class="fa fa-info"></i></a>
                                 <a class="btn btn-primary"><i class="fa fa-edit"></i></a>
                                 <a onclick="DeleteUserSwal(@user.UserId)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                             </td>

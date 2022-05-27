@@ -23,8 +23,7 @@ namespace SuperMarketManagement.Web.Controllers
 
         public async Task<IActionResult> Index(FilterUsersDto filter)
         {
-            var model = await _userService.FilterUsers(filter);
-            return View(model);
+            return View(await _userService.FilterUsers(filter));
         }
 
         #endregion
@@ -37,7 +36,7 @@ namespace SuperMarketManagement.Web.Controllers
             return View();
         }
 
-        [HttpPost("add")]
+        [HttpPost("add"),ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUser(CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
@@ -59,7 +58,17 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region detail
 
-
+        [HttpGet("detail/{userId}")]
+        public async Task<IActionResult> Detail(int userId)
+        {
+            var model = await _userService.GetUserInfoById(userId);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            
+            return View(model);
+        }
 
         #endregion
 
