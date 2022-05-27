@@ -15,8 +15,6 @@ namespace SuperMarketManagement.Application.DTOs.User
 
         public DateTime RegisterDate { get; set; }
 
-        public UserRole UserRole { get; set; }
-
         #endregion
     }
 }

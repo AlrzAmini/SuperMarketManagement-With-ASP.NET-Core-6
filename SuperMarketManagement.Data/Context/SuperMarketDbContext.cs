@@ -12,7 +12,8 @@ namespace SuperMarketManagement.Data.Context
     {
         #region constructor
 
-        public SuperMarketDbContext(DbContextOptions<SuperMarketDbContext> option) : base(option)
+        public SuperMarketDbContext(DbContextOptions<SuperMarketDbContext> option)
+            : base(option)
         {
         }
 

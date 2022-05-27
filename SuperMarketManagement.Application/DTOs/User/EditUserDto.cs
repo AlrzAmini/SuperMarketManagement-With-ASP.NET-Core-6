@@ -21,10 +21,7 @@ namespace SuperMarketManagement.Application.DTOs.User
 
         [DisplayName("آدرس")]
         [MaxLength(700, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر داشته باشد")]
-        public string Address { get; set; }
-
-        [DisplayName("نقش کاربر")]
-        public UserRole UserRole { get; set; }
+        public string? Address { get; set; }
 
         #endregion
     }

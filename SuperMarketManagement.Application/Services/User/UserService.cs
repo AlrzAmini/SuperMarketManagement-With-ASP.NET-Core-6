@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using SuperMarketManagement.Application.DTOs.Paging;
 using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
 using SuperMarketManagement.Application.Utilities.Extensions.Security;
-using SuperMarketManagement.Application.Utilities.Security.Hashers;
 using SuperMarketManagement.Domain.Interfaces.User;
 
 namespace SuperMarketManagement.Application.Services.User
@@ -25,10 +20,8 @@ namespace SuperMarketManagement.Application.Services.User
         {
             var user = new Domain.Models.User.User
             {
-                UserName = createUserDto.UserName.Sanitize(),
-                Address = createUserDto.Address.Sanitize(),
-                Password = PasswordHasher.HashWithAragon2(createUserDto.Password),
-                UserRole = createUserDto.UserRole
+                UserName = createUserDto.UserName?.Sanitize(),
+                Address = createUserDto.Address?.Sanitize(),
             };
             return await _userRepository.AddUser(user);
         }
@@ -42,8 +35,7 @@ namespace SuperMarketManagement.Application.Services.User
             }
 
             user.UserName = editUserDto.UserName?.Sanitize();
-            user.Address = editUserDto.Address.Sanitize();
-            user.UserRole = editUserDto.UserRole;
+            user.Address = editUserDto.Address?.Sanitize();
 
             return await _userRepository.UpdateUser(user);
         }
@@ -74,11 +66,10 @@ namespace SuperMarketManagement.Application.Services.User
 
             return new UserInfo
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 UserName = user.UserName,
                 Address = user.Address,
-                UserRole = user.UserRole,
-                RegisterDate = user.RegisterDate
+                RegisterDate = user.CreatedDate
             };
         }
 
@@ -93,23 +84,16 @@ namespace SuperMarketManagement.Application.Services.User
             var users = await _userRepository.GetAllUsersQueryable();
             return users.Select(user => new UserInfo
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 UserName = user.UserName,
                 Address = user.Address,
-                UserRole = user.UserRole,
-                RegisterDate = user.RegisterDate
+                RegisterDate = user.CreatedDate
             }).ToList();
         }
 
         public async Task<FilterUsersDto> FilterUsers(FilterUsersDto filter)
         {
             var result = await _userRepository.GetAllUsersQueryable();
-
-            // filter by role
-            if (filter.UserRole != null)
-            {
-                result = result.Where(r => r.UserRole == filter.UserRole.Value);
-            }
 
             //filter by user name
             if (!string.IsNullOrEmpty(filter.UserName))
@@ -122,11 +106,10 @@ namespace SuperMarketManagement.Application.Services.User
             var users = result.Paging(pager)
                 .Select(user => new UserInfo
                 {
-                    UserId = user.UserId,
+                    UserId = user.Id,
                     UserName = user.UserName,
                     Address = user.Address,
-                    UserRole = user.UserRole,
-                    RegisterDate = user.RegisterDate
+                    RegisterDate = user.CreatedDate
                 }).ToList();
 
             return filter.SetPaging(pager).SetEntities(users);

@@ -2,7 +2,6 @@
 @model SuperMarketManagement.Application.DTOs.User.CreateUserDto
 @{
     ViewData["Title"] = "افزودن کاربر";
-    var roles = Html.GetEnumSelectList<UserRole>();
 }
 @section Scripts
 {
@@ -45,24 +44,6 @@
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">نقش کاربر
-                                    <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select asp-for="UserRole" asp-items="Html.GetEnumSelectList<UserRole>()" id="heard" class="form-control" >
-                                    </select>
-                                    <span asp-validation-for="UserRole" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">رمز عبور
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="password" asp-for="Password" id="password" class="form-control col-md-7 col-xs-12">
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                            </div>  
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

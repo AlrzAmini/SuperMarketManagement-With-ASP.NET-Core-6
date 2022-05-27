@@ -25,8 +25,6 @@ namespace SuperMarketManagement.Application.DTOs.User
 
         public string? Address { get; set; }
 
-        public UserRole? UserRole { get; set; }
-
         public List<UserInfo> Users { get; set; }
 
         #endregion
