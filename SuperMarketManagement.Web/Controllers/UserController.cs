@@ -20,7 +20,7 @@ namespace SuperMarketManagement.Web.Controllers
         #endregion
 
         #region index
-
+        
         public async Task<IActionResult> Index(FilterUsersDto filter)
         {
             return View(await _userService.FilterUsers(filter));
@@ -74,7 +74,34 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region edit
 
+        [HttpGet("edit/{userId}")]
+        public async Task<IActionResult> Edit(int userId)
+        {
+            var model = await _userService.GetUserForEdit(userId);
+            if (model == null)
+            {
+                return NotFound();
+            }
 
+            return View(model);
+        }
+
+        [HttpPost("edit/{userId}"),ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditUserDto editUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(editUserDto);
+            }
+            if (await _userService.EditUser(editUserDto))
+            {
+                TempData[SuccessToast] = "با موفقیت ویرایش شد";
+                return RedirectToAction("Index");
+            }
+
+            TempData[ErrorToast] = "ویرایش با شکست مواجه شد";
+            return RedirectToAction("Index");
+        }
 
         #endregion
 

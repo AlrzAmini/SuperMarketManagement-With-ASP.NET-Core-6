@@ -101,6 +101,12 @@ namespace SuperMarketManagement.Application.Services.User
                 result = result.Where(r => r.UserName != null && r.UserName.Contains(filter.UserName));
             }
 
+            //filter by address
+            if (!string.IsNullOrEmpty(filter.Address))
+            {
+                result = result.Where(r => r.Address != null && r.Address.Contains(filter.Address));
+            }
+
             //paging
             var pager = Pager.Build(filter.PageNum, result.Count(), filter.Take, filter.PageCountAfterAndBefore);
             var users = result.Paging(pager)
@@ -113,6 +119,22 @@ namespace SuperMarketManagement.Application.Services.User
                 }).ToList();
 
             return filter.SetPaging(pager).SetEntities(users);
+        }
+
+        public async Task<EditUserDto?> GetUserForEdit(int userId)
+        {
+            var user = await _userRepository.GetUserById(userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new EditUserDto
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Address = user.Address
+            };
         }
     }
 }

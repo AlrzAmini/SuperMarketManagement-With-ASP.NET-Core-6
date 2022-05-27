@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using SuperMarketManagement.Application.DTOs.User;
 
 namespace SuperMarketManagement.Application.Interfaces.User
@@ -16,6 +12,8 @@ namespace SuperMarketManagement.Application.Interfaces.User
         Task<bool> DeleteUser(int userId);
 
         Task<Domain.Models.User.User?> GetUserById(int userId);
+        
+        Task<EditUserDto?> GetUserForEdit(int userId);
         
         Task<UserInfo?> GetUserInfoById(int userId);
 

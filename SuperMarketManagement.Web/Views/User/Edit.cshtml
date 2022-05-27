@@ -1,15 +1,15 @@
-﻿
-@model SuperMarketManagement.Application.DTOs.User.CreateUserDto
+﻿@model SuperMarketManagement.Application.DTOs.User.EditUserDto
 @{
-    ViewData["Title"] = "افزودن کاربر";
+    ViewData["Title"] = "ویرایش کاربر" + " " + Model.UserName;
 }
+
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial"/>
 }
 <div class="page-title">
     <div class="title_left">
-        <h3>افزودن کاربر</h3>
+        <h3>@ViewData["Title"]</h3>
     </div>
 </div>
 <div class="clearfix"></div>
@@ -17,15 +17,15 @@
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>افزودن کاربر جدید
+                        <h2>ویرایش کاربر
                         </h2>
                         <partial name="Partials/_PanelToolBox"/>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <br>
-                        <form asp-controller="User" asp-action="AddUser" method="post" id="demo-form2" class="form-horizontal form-label-left">
-
+                        <form asp-controller="User" asp-action="Edit" method="post" id="demo-form2" class="form-horizontal form-label-left">
+                            <input type="hidden" asp-for="UserId"/>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">نام
                                     <span class="required">*</span>
@@ -47,7 +47,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-success">ثبت کاربر</button>
+                                    <button type="submit" class="btn btn-info">ویرایش کاربر</button>
                                     <button onclick="window.history.go(-1);" class="btn btn-link">انصراف</button>
                                 </div>
                             </div>
@@ -57,3 +57,4 @@
                 </div>
             </div>
         </div>
+
