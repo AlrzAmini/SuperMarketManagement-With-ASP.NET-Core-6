@@ -16,8 +16,8 @@ namespace SuperMarketManagement.Domain.Models.User
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(700, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر داشته باشد")]
         public string? Address { get; set; }
-
-        public bool IsDelete { get; set; }
+        
+        public bool IsDeleted { get; set; }
 
         #endregion
 

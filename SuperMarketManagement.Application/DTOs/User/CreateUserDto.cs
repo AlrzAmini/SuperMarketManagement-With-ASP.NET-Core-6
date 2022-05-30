@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using SuperMarketManagement.Domain.Models.User;
+
 
 namespace SuperMarketManagement.Application.DTOs.User
 {

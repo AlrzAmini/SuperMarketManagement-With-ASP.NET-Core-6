@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SuperMarketManagement.Domain.Models.Product;
 using SuperMarketManagement.Domain.Models.User;
 
 namespace SuperMarketManagement.Data.Context
@@ -22,6 +23,9 @@ namespace SuperMarketManagement.Data.Context
         #region add entities
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductGroup> ProductGroups { get; set; }
+        public DbSet<ProductSize> ProductSizes { get; set; }
 
         #endregion
 
@@ -35,7 +39,16 @@ namespace SuperMarketManagement.Data.Context
             #region query filters
 
             modelBuilder.Entity<User>()
-                .HasQueryFilter(e => !e.IsDelete);
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<ProductGroup>()
+                .HasQueryFilter(e => !e.IsDeleted);
+
+            modelBuilder.Entity<ProductSize>()
+                .HasQueryFilter(e => !e.IsDeleted);
 
             #endregion
 

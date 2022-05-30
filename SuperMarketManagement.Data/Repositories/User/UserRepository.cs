@@ -39,7 +39,7 @@ namespace SuperMarketManagement.Data.Repositories.User
 
         public async Task<bool> DeleteUser(Domain.Models.User.User user)
         {
-            user.IsDelete = true;
+            user.IsDeleted = true;
             return await UpdateUser(user);
         }
 

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\Product\" />
     <Folder Include="Utilities\Generators\" />
   </ItemGroup>
 
