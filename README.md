@@ -20,4 +20,4 @@ This application built with ASP.NET CORE and EF CORE 6.
 
 ## Development Tools & Environment
 * [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
-* [SQL Server 2019](#vs2022)
+* [SQL Server 2019]([https://visualstudio.microsoft.com/vs/](https://www.microsoft.com/en-us/sql-server/sql-server-2019))
