@@ -4,26 +4,20 @@ using SuperMarketManagement.Domain.Models.Base;
 
 namespace SuperMarketManagement.Domain.Models.User
 {
-    public class User : BaseEntity
+    public class Admin : BaseEntity
     {
         #region properties
-        
+
         [DisplayName("نام کاربری")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
         [MaxLength(400, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر داشته باشد")]
         public string? UserName { get; set; }
 
-        [DisplayName("آدرس")]
+        [DisplayName("رمز عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
-        [MaxLength(700, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر داشته باشد")]
-        public string? Address { get; set; }
-        
+        public string? Password { get; set; }
+
         public bool IsDeleted { get; set; }
-
-        #endregion
-
-        #region relations
-
-        
 
         #endregion
     }
