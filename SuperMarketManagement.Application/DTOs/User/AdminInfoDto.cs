@@ -12,11 +12,15 @@ namespace SuperMarketManagement.Application.DTOs.User
     {
         #region properties
 
+        public int ManagerId { get; set; }
+
         [DisplayName("نام کاربری")]
         public string? UserName { get; set; }
 
         [DisplayName("رمز عبور")]
         public string? Password { get; set; }
+
+        public DateTime CreateDate { get; set; }
 
         #endregion
     }

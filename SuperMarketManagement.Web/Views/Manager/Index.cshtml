@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using SuperMarketManagement.Application.Utilities.Extensions.Date
+@model List<SuperMarketManagement.Application.DTOs.User.AdminInfoDto>
+@{
+    ViewData["Title"] = "لیست مدیران";
+}
+
+    <div class="title_left">
+        <div class="col-md-8">
+            <h2>
+                @ViewData["Title"]
+            </h2>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-success btn-block" asp-controller="User" asp-action="AddUser">
+                افزودن کاربر
+            </a>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-12">
+        @if ( Model.Any())
+    {
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    @ViewData["Title"]
+                </h2>
+                <partial name="Partials/_PanelToolBox" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>شناسه</th>
+                            <th>نام</th>                            
+                            <th>تاریخ ثبت نام</th>
+                            <th>دستورات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var manager in Model)
+                        {
+                            <tr>
+                                <th scope="row">@manager.ManagerId</th>
+                                <td>@manager.UserName</td>
+                                <td>@manager.CreateDate.ToShamsi()</td>
+                                <td>
+                                    <a class="btn btn-info"><i class="fa fa-info"></i></a>
+                                    <a class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a onclick="DeleteUserSwal(@manager.ManagerId)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>کاربری ثبت نشده!</strong> هنوز مدیری را ثبت نکرده اید
+        </div>
+    }
+</div>
+

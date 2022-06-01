@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
-using SuperMarketManagement.Domain.Models.User;
 
 namespace SuperMarketManagement.Web.Controllers
 {
-    [Route("user")]
+    [Route("users")]
     public class UserController : BaseController
     {
         #region constructor

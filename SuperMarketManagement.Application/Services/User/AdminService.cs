@@ -58,7 +58,9 @@ namespace SuperMarketManagement.Application.Services.User
                 .Select(a => new AdminInfoDto
                 {
                     Password = a?.Password,
-                    UserName = a?.UserName
+                    UserName = a?.UserName,
+                    ManagerId = a?.Id ?? default,
+                    CreateDate = a?.CreatedDate ?? default
                 }).ToList();
         }
     }
