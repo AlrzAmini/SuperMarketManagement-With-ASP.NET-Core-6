@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using SuperMarketManagement.Application.Interfaces.Product;
 using SuperMarketManagement.Application.Interfaces.User;
+using SuperMarketManagement.Application.Services.Product;
 using SuperMarketManagement.Application.Services.User;
 using SuperMarketManagement.Data.Context;
+using SuperMarketManagement.Data.Repositories.Product;
 using SuperMarketManagement.Data.Repositories.User;
+using SuperMarketManagement.Domain.Interfaces.Product;
 using SuperMarketManagement.Domain.Interfaces.User;
 
 namespace SuperMarketManagement.Web
@@ -67,6 +71,16 @@ namespace SuperMarketManagement.Web
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
+
+            #endregion
+
+            #region product
+
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             #endregion
 

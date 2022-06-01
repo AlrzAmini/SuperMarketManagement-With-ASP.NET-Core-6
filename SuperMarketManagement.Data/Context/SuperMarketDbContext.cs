@@ -23,7 +23,7 @@ namespace SuperMarketManagement.Data.Context
         #region add entities
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Admin?> Admins { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductGroup> ProductGroups { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
