@@ -37,8 +37,8 @@ namespace SuperMarketManagement.Web
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             }).AddCookie(options =>
             {
-                options.LoginPath = "/Login";
-                options.LogoutPath = "/Logout";
+                options.LoginPath = "/login";
+                options.LogoutPath = "/login";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
             });
 

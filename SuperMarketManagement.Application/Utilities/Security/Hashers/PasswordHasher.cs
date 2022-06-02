@@ -49,8 +49,13 @@ namespace SuperMarketManagement.Application.Utilities.Security.Hashers
             return string.IsNullOrEmpty(password) ? "" : Argon2.Hash(password);
         }
 
-        public static bool VerifyAragon2(string password, string hash)
+        public static bool VerifyAragon2(string? password, string? hash)
         {
+            if (password == null || hash == null)
+            {
+                return false;
+            }
+            
             return Argon2.Verify(password, hash);
         }
 

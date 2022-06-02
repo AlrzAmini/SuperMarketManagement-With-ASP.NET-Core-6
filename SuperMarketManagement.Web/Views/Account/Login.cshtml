@@ -1,0 +1,32 @@
+﻿@model SuperMarketManagement.Application.DTOs.Account.LoginDto
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "ورود";
+}
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}
+
+<div class="login_wrapper">
+    <div class="animate form login_form">
+        <section class="login_content">
+            <form asp-controller="Account" asp-action="Login" asp-route-backUrl="@ViewData["returnUrl"]" method="post">
+                <h1>فرم ورود</h1>
+                <div>
+                    <input asp-for="UserName" class="form-control" placeholder="نام کاربری">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div>
+                    <input asp-for="Password" class="form-control" placeholder="رمز ورود">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success submit">ورود</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </section>
+    </div>
+</div>
+

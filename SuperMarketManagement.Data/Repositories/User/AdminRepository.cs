@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Microsoft.EntityFrameworkCore;
 using SuperMarketManagement.Data.Context;
 using SuperMarketManagement.Domain.Interfaces.User;
@@ -58,9 +54,26 @@ namespace SuperMarketManagement.Data.Repositories.User
             return await _context.Admins.FindAsync(adminId);
         }
 
-        public async Task<List<Admin?>> GetAdmins()
+        public async Task<List<Admin>> GetAdmins()
         {
-            return await _context.Admins.ToListAsync();
+            return (await _context.Admins
+                .OrderByDescending(a =>a!.CreatedDate)
+                .ToListAsync())!;
+        }
+
+        public async Task<bool> IsUserNameExist(string userName)
+        {
+            return await _context.Admins.AnyAsync(x => x != null && x.UserName == userName);
+        }
+
+        public string? GetAdminHashedPasswordByUserName(string userName)
+        {
+            return _context.Admins.FirstOrDefault(a => a != null && a.UserName == userName)?.Password;
+        }
+
+        public async Task<Admin?> GetAdminByUserName(string userName)
+        {
+            return await _context.Admins.FirstOrDefaultAsync(x => x != null && x.UserName == userName);
         }
     }
 }

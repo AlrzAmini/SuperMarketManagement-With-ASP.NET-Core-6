@@ -10,15 +10,21 @@ namespace SuperMarketManagement.Application.DTOs.User
 {
     public class AdminInfoDto
     {
+        public AdminInfoDto()
+        {
+            UserName = "";
+            Password = "";
+        }
+
         #region properties
 
         public int ManagerId { get; set; }
 
         [DisplayName("نام کاربری")]
-        public string? UserName { get; set; }
+        public string UserName { get; set; }
 
         [DisplayName("رمز عبور")]
-        public string? Password { get; set; }
+        public string Password { get; set; }
 
         public DateTime CreateDate { get; set; }
 

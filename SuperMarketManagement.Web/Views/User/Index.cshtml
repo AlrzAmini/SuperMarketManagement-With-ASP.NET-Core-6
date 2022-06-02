@@ -22,9 +22,9 @@
                 }
             });
         }
-
+        
         function deleteUser(id) {
-            var userUri = "/user/del/" + id;
+            var userUri = "/users/del/" + id;
 
             fetch(userUri, {
                 method: 'post'
@@ -40,9 +40,6 @@
                 console.log(`error: ${err}`);
             });
         };
-
-
-
     </script>
 }
     <div class="title_left">

@@ -20,13 +20,7 @@ namespace SuperMarketManagement.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var model = await _adminService.GetAdminsInfo();
-            if (model.Any())
-            {
-                return View(model);
-            }
-
-            TempData[ErrorMessage] = "مدیری ثبت نشده است";
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
 
         #endregion
@@ -47,14 +41,22 @@ namespace SuperMarketManagement.Web.Controllers
                 return View(admin);
             }
 
-            if (await _adminService.AddAdmin(admin))
+            var res = await _adminService.AddAdmin(admin);
+            switch (res)
             {
-                TempData[SuccessMessage] = "مدیر با موفقیت ثبت شد";
-                return RedirectToAction("Index");
+                case AddAdminResult.Success:
+                    TempData[SuccessMessage] = "مدیر با موفقیت ثبت شد";
+                    return RedirectToAction("Index");
+                case AddAdminResult.UserNameExist:
+                    TempData[ErrorMessage] = "نام مدیر نمیتواند تکراری باشد";
+                    return RedirectToAction("CreateManager");
+                case AddAdminResult.Error:
+                    TempData[ErrorMessage] = "مدیر ثبت نشد";
+                    return RedirectToAction("Index");
+                default:
+                    TempData[ErrorMessage] = "خطایی رخ داد";
+                    return RedirectToAction("Index");
             }
-
-            TempData[ErrorMessage] = "مدیر ثبت نشد";
-            return RedirectToAction("Index");
         }
 
         #endregion
@@ -67,7 +69,24 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region delete
 
+        [HttpPost("del/{managerId}")]
+        public async Task<IActionResult> DeleteManager(int managerId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
 
+            var res = await _adminService.DeleteAdmin(managerId);
+            if (res)
+            {
+                TempData[SuccessMessage] = "مدیر با موفقیت حذف شد";
+                return Ok(res);
+            }
+
+            TempData[ErrorMessage] = "مدیر حذف نشد";
+            return BadRequest(res);
+        }
 
         #endregion
 
