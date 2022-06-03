@@ -14,6 +14,7 @@ namespace SuperMarketManagement.Application.DTOs.User
         {
             UserName = "";
             Password = "";
+            TodayWorkTimeMinutes = default;
         }
 
         #region properties
@@ -27,6 +28,8 @@ namespace SuperMarketManagement.Application.DTOs.User
         public string Password { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public int TodayWorkTimeMinutes { get; set; }
 
         #endregion
     }

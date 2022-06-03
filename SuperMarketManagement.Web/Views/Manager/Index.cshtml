@@ -73,7 +73,7 @@
                                             <ul class="list-unstyled">
                                                 <li><i class="fa fa-id-badge"></i> شناسه: @manager.ManagerId</li>
                                                 <li><i class="fa fa-try"></i> زمان کار : @manager.CreateDate.GetWorkDaysUntilNow() روز</li>
-                                                <li><i class="fa fa-try"></i> تایم کاری امروز : @manager.CreateDate.GetWorkDaysUntilNow() روز</li>
+                                                <li><i class="fa fa-try"></i> تایم کاری امروز : @manager.TodayWorkTimeMinutes.ToWorkTimeFormat() </li>
                                             </ul>
                                         </div>
                                         <div class="right col-xs-5 text-center">

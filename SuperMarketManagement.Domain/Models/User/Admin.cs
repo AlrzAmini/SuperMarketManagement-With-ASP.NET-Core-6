@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using SuperMarketManagement.Domain.Models.Base;
+using SuperMarketManagement.Domain.Models.User.Attendance;
 
 namespace SuperMarketManagement.Domain.Models.User
 {
@@ -24,6 +25,12 @@ namespace SuperMarketManagement.Domain.Models.User
         public string Password { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        #endregion
+
+        #region relations
+
+        public ICollection<AdminAttendance> AdminAttendances { get; set; }
 
         #endregion
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperMarketManagement.Data.Context;
 
@@ -11,9 +12,10 @@ using SuperMarketManagement.Data.Context;
 namespace SuperMarketManagement.Data.Migrations
 {
     [DbContext(typeof(SuperMarketDbContext))]
-    partial class SuperMarketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220603160137_AddIsClosedToAttendance")]
+    partial class AddIsClosedToAttendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,9 +167,6 @@ namespace SuperMarketManagement.Data.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("WorkTimeMinutes")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

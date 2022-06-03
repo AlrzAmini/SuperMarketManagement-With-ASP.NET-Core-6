@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SuperMarketManagement.Data.Context;
 using SuperMarketManagement.Domain.Interfaces.User;
 using SuperMarketManagement.Domain.Models.User;
+using SuperMarketManagement.Domain.Models.User.Attendance;
 
 namespace SuperMarketManagement.Data.Repositories.User
 {
@@ -57,23 +58,68 @@ namespace SuperMarketManagement.Data.Repositories.User
         public async Task<List<Admin>> GetAdmins()
         {
             return (await _context.Admins
-                .OrderByDescending(a =>a!.CreatedDate)
+                .OrderByDescending(a => a!.CreatedDate)
                 .ToListAsync())!;
         }
 
         public async Task<bool> IsUserNameExist(string userName)
         {
-            return await _context.Admins.AnyAsync(x => x != null && x.UserName == userName);
+            return await _context.Admins.AnyAsync(x => x.UserName == userName);
         }
 
         public string? GetAdminHashedPasswordByUserName(string userName)
         {
-            return _context.Admins.FirstOrDefault(a => a != null && a.UserName == userName)?.Password;
+            return _context.Admins.FirstOrDefault(a => a.UserName == userName)?.Password;
         }
 
         public async Task<Admin?> GetAdminByUserName(string userName)
         {
-            return await _context.Admins.FirstOrDefaultAsync(x => x != null && x.UserName == userName);
+            return await _context.Admins.FirstOrDefaultAsync(x => x.UserName == userName);
+        }
+
+        public async Task<bool> AddAttendance(AdminAttendance attendance)
+        {
+            try
+            {
+                await _context.AdminAttendances.AddAsync(attendance);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateAttendance(AdminAttendance attendance)
+        {
+            try
+            {
+                _context.AdminAttendances.Update(attendance);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CloseAttendance(AdminAttendance attendance)
+        {
+            attendance.IsClosed = true;
+            return await UpdateAttendance(attendance);
+        }
+
+        public async Task<AdminAttendance?> GetAttendanceById(int attendanceId)
+        {
+            return await _context.AdminAttendances.FindAsync(attendanceId);
+        }
+
+        public IQueryable<AdminAttendance> GetAdminAttendances(int adminId)
+        {
+            return _context.AdminAttendances
+                .Where(a => a.AdminId == adminId);
         }
     }
 }

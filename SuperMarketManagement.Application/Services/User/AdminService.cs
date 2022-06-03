@@ -1,11 +1,14 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using SuperMarketManagement.Application.DTOs.Account;
 using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
 using SuperMarketManagement.Application.Utilities.Extensions.Security;
 using SuperMarketManagement.Application.Utilities.Security.Hashers;
+using SuperMarketManagement.Application.Utilities.Utils.DateUtils;
 using SuperMarketManagement.Domain.Interfaces.User;
 using SuperMarketManagement.Domain.Models.User;
+using SuperMarketManagement.Domain.Models.User.Attendance;
 
 namespace SuperMarketManagement.Application.Services.User
 {
@@ -71,9 +74,27 @@ namespace SuperMarketManagement.Application.Services.User
                 {
                     Password = a.Password,
                     UserName = a.UserName,
-                    ManagerId = a.Id ,
-                    CreateDate = a.CreatedDate 
+                    ManagerId = a.Id,
+                    CreateDate = a.CreatedDate
                 }).ToList();
+        }
+
+        public async Task<AdminInfoDto?> GetAdminInfoById(int adminId)
+        {
+            var admin = await _adminRepository.GetAdminById(adminId);
+            if (admin == null)
+            {
+                return null;
+            }
+
+            return new AdminInfoDto
+            {
+                UserName = admin.UserName,
+                Password = admin.Password,
+                CreateDate = admin.CreatedDate,
+                ManagerId = admin.Id,
+                TodayWorkTimeMinutes = await CalculateAdminTodayWorkTime(adminId)
+            };
         }
 
         public async Task<bool> IsUserNameExist(string? userName)
@@ -93,10 +114,10 @@ namespace SuperMarketManagement.Application.Services.User
 
             // get admin
             var admin = await _adminRepository.GetAdminByUserName(loginDto.UserName);
-            
+
             // check admin for null exp
             if (admin == null) return LoginResult.UserNameNotFound;
-            
+
             // verify password
             var verifyResult = PasswordHasher.VerifyAragon2(loginDto.Password, admin.Password);
             return verifyResult ? LoginResult.Success : LoginResult.PasswordNotMatch;
@@ -117,6 +138,61 @@ namespace SuperMarketManagement.Application.Services.User
                 ManagerId = admin.Id,
                 CreateDate = admin.CreatedDate
             };
+        }
+
+        public async Task<bool> AddAttendance(AdminAttendance attendance)
+        {
+            return await _adminRepository.AddAttendance(attendance);
+        }
+
+        public async Task<bool> UpdateAttendance(AdminAttendance attendance)
+        {
+            return await _adminRepository.UpdateAttendance(attendance);
+        }
+
+        public async Task<bool> CloseAttendance(int attendanceId)
+        {
+            var attendance = await _adminRepository.GetAttendanceById(attendanceId);
+            if (attendance == null)
+            {
+                return false;
+            }
+
+            if (attendance.IsClosed)
+            {
+                return false;
+            }
+
+            var now = DateTime.Now;
+
+            // work time is ended : attendance end date = datetime.now and status = closed
+            attendance.EndDate = now;
+            attendance.WorkTimeMinutes = DateUtils.GetDifferenceInMinutes(attendance.StartDate, now);
+
+            return await _adminRepository.CloseAttendance(attendance);
+        }
+
+        public async Task<int> CalculateAdminTodayWorkTime(int adminId)
+        {
+            try
+            {
+                var query = _adminRepository.GetAdminAttendances(adminId);
+
+                // filter admin today attendances
+                query = query.Where(q => q.StartDate.Date == DateTime.Now.Date);
+
+                var todayWorkTime = await query.SumAsync(a => a.WorkTimeMinutes);
+
+                // pattern :
+                // if todayWorkTime is not null, return todayWorkTime
+                // else return 0
+                return todayWorkTime ?? default;
+            }
+            // if query is null, come into catch and return 0
+            catch (ArgumentOutOfRangeException)
+            {
+                return default;
+            }
         }
     }
 }

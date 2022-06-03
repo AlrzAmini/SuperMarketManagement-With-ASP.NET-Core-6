@@ -132,7 +132,17 @@ namespace SuperMarketManagement.Application.Utilities.Extensions.Date
 
         public static int GetWorkDaysUntilNow(this DateTime dt)
         {
-            return Convert.ToInt32((DateTime.Now - dt).TotalDays);
+            return (int)(DateTime.Now - dt).TotalDays;
+        }
+
+        public static string ToWorkTimeFormat(this int value)
+        {
+            return value switch
+            {
+                < 60 => $"{value} دقیقه",
+                > 60 => $"{value / 60} ساعت و {value % 60} دقیقه",
+                60 => "1 ساعت"
+            };
         }
     }
 }

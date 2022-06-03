@@ -120,7 +120,7 @@ namespace SuperMarketManagement.Web.Controllers
 
         #endregion
 
-        #region MyRegion
+        #region attendance
 
         
 
