@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SuperMarketManagement.Domain.Models.Product;
 using SuperMarketManagement.Domain.Models.User;
+using SuperMarketManagement.Domain.Models.User.Attendance;
 
 namespace SuperMarketManagement.Data.Context
 {
@@ -22,11 +23,21 @@ namespace SuperMarketManagement.Data.Context
 
         #region add entities
 
+        #region user
+
         public DbSet<User> Users { get; set; }
-        public DbSet<Admin?> Admins { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<AdminAttendance> AdminAttendances { get; set; }
+
+        #endregion
+
+        #region product
+
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductGroup> ProductGroups { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
+
+        #endregion
 
         #endregion
 
