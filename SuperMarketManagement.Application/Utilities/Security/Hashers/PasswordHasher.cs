@@ -56,7 +56,7 @@ namespace SuperMarketManagement.Application.Utilities.Security.Hashers
                 return false;
             }
             
-            return Argon2.Verify(password, hash);
+            return Argon2.Verify(hash, password);
         }
 
         #endregion

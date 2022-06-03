@@ -1,4 +1,5 @@
-﻿<div class="col-md-3 left_col hidden-print">
+﻿@using SuperMarketManagement.Application.Utilities.Extensions.Common
+<div class="col-md-3 left_col hidden-print">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>سوپر مارکت</span></a>
@@ -13,7 +14,7 @@
                         </div>
                         <div class="profile_info">
                             <span>خوش آمدید,</span>
-                            <h2>مرتضی کریمی</h2>
+                            <h2>@User.GetUserName()</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -28,8 +29,8 @@
                                 <li>
                                     <a><i class="fa fa-users"></i> کاربران <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a asp-controller="User" asp-action="Index">لیست کاربران</a></li>
                                         <li><a asp-controller="Manager" asp-action="Index">لیست مدیران</a></li>
+                                        <li><a asp-controller="User" asp-action="Index">لیست کاربران</a></li>
                                     </ul>
                                 </li>
                                 <li>

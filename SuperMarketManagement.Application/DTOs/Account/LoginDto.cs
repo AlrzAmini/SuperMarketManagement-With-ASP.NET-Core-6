@@ -5,10 +5,10 @@ namespace SuperMarketManagement.Application.DTOs.Account
 {
     public class LoginDto
     {
-        public LoginDto(string userName, string password)
+        public LoginDto()
         {
-            UserName = userName;
-            Password = password;
+            UserName = "";
+            Password = "";
         }
 
         [DisplayName("نام کاربری")]

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SuperMarketManagement.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class BaseController : Controller
     {
         protected string SuccessMessage = "SuccessMessage";

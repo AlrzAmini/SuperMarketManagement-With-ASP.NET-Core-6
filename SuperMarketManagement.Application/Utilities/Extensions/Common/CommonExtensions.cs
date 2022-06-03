@@ -29,5 +29,11 @@ namespace SuperMarketManagement.Application.Utilities.Extensions.Common
             return data != null ? Convert.ToInt32(data.Value) : default;
         }
 
+        public static string GetUserName(this ClaimsPrincipal claim)
+        {
+            var data = claim.Claims.FirstOrDefault(s => s.Type == ClaimTypes.Name);
+            return data != null ? data.Value : "";
+        }        
+
     }
 }

@@ -38,7 +38,7 @@ namespace SuperMarketManagement.Web
             }).AddCookie(options =>
             {
                 options.LoginPath = "/login";
-                options.LogoutPath = "/login";
+                options.LogoutPath = "/logout";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
             });
 
@@ -104,6 +104,7 @@ namespace SuperMarketManagement.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -12,12 +12,19 @@ namespace SuperMarketManagement.Web.Controllers
         private const string ErrorMessage = "ErrorMessage";
         private const string WarningMessage = "WarningMessage";
         private const string SuccessToast = "SuccessToast";
+
+        #region MyRegion
+
         private readonly IAdminService _adminService;
 
         public AccountController(IAdminService adminService)
         {
             _adminService = adminService;
         }
+
+        #endregion
+
+        #region login
 
         [HttpGet("login")]
         public IActionResult Login(string? returnUrl)
@@ -54,11 +61,11 @@ namespace SuperMarketManagement.Web.Controllers
                     {
                         var adminInfo = await _adminService.GetAdminInfoByUserName(loginDto.UserName);
                         if (adminInfo == null) return BadRequest();
-                        
+
                         var claims = new List<Claim>
                         {
-                            new(ClaimTypes.NameIdentifier,adminInfo.ManagerId.ToString()),
-                            new(ClaimTypes.Name,adminInfo.UserName)
+                        new(ClaimTypes.NameIdentifier,adminInfo.ManagerId.ToString()),
+                        new(ClaimTypes.Name,adminInfo.UserName)
                         };
 
                         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -95,5 +102,28 @@ namespace SuperMarketManagement.Web.Controllers
                     return RedirectToAction("Login");
             }
         }
+
+        #endregion
+
+        #region logout
+
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            if (User.Identity is { IsAuthenticated: false })
+                return RedirectToAction("Login");
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+
+        }
+
+        #endregion
+
+        #region MyRegion
+
+        
+
+        #endregion
     }
 }
