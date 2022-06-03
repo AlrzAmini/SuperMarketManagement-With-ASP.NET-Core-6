@@ -5,7 +5,7 @@
     ViewData["Title"] = "لیست مدیران";
 }
 @section Scripts
-{
+    {
     <script>
         function DeleteManagerSwal(userId) {
             Swal.fire({
@@ -54,54 +54,72 @@
             </a>
         </div>
     </div>
-    <div class="col-md-8 col-sm-8 col-xs-12">
-        @if (Model.Any())
-    {
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>
-                    @ViewData["Title"]
-                </h2>
-                <partial name="Partials/_PanelToolBox" />
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>شناسه</th>
-                            <th>نام</th>                            
-                            <th>تاریخ ثبت نام</th>
-                            <th>دستورات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            @if (Model.Any())
+        {
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
                         @foreach (var manager in Model)
                         {
-                            <tr>
-                                <th scope="row">@manager.ManagerId</th>
-                                <td>@manager.UserName</td>
-                                <td>@manager.CreateDate.ToShamsi()</td>
-                                <td>
-                                    <a class="btn btn-info"><i class="fa fa-info"></i></a>
-                                    <a class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a onclick="DeleteManagerSwal(@manager.ManagerId)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
+                            <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                                <div class="well profile_view">
+                                    <div class="col-sm-12">
+                                        <h4 class="brief"><i>@manager.CreateDate.ToShamsi()</i></h4>
+                                        <div class="left col-xs-7">
+                                            <h2>@manager.UserName</h2>
+                                            <p><strong>پست: </strong> مدیر </p>
+                                            <ul class="list-unstyled">
+                                                <li><i class="fa fa-id-badge"></i> شناسه: @manager.ManagerId</li>
+                                                <li><i class="fa fa-try"></i> زمان کار : @manager.CreateDate.GetWorkDaysUntilNow() روز</li>
+                                                <li><i class="fa fa-try"></i> تایم کاری امروز : @manager.CreateDate.GetWorkDaysUntilNow() روز</li>
+                                            </ul>
+                                        </div>
+                                        <div class="right col-xs-5 text-center">
+                                            <img src="/build/images/user.png" alt="" class="img-circle img-responsive">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 bottom text-center">
+                                        <div class="col-xs-12 col-sm-6 emphasis">
+                                            <p class="ratings">
+                                                <a>4.0</a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star"></span></a>
+                                                <a href="#"><span class="fa fa-star-o"></span></a>
+                                            </p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 emphasis">
+                                            <button type="button" class="btn btn-success btn-xs">
+                                                <i class="fa fa-user">
+                                                </i> <i class="fa fa-comments-o"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-xs">
+                                                <i class="fa fa-user"> </i> مشاهد حساب
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-            <strong>مدیری ثبت نشده!</strong> 
-        </div>
-    }
+        }
+        else
+        {
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <strong>مدیری ثبت نشده!</strong>
+            </div>
+        }
+    </div>
 </div>
+
+
+
 
