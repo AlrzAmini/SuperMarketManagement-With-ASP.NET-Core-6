@@ -13,7 +13,7 @@ This application built with ASP.NET CORE and EF CORE 6.
 * User management system
 * Product management system
 * Inventory management system
-* Admin Attendance sustem
+* Admin Attendance system
 * Secure password Hashers
 * Beautifull date picker & date convertors
 
