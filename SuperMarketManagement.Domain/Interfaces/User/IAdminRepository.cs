@@ -28,6 +28,9 @@ public interface IAdminRepository
     Task<bool> CloseAttendance(AdminAttendance attendance);    
     Task<AdminAttendance?> GetAttendanceById(int attendanceId);
     IQueryable<AdminAttendance> GetAdminAttendances(int adminId);
+    Task<bool> IsAdminHaveUnClosedAttendance(int adminId);
+    DateTime? GetAdminUnClosedAttendanceDate(int adminId);
+    Task<AdminAttendance?> GetAdminUnClosedAttendance(int adminId);
 
     #endregion
 }

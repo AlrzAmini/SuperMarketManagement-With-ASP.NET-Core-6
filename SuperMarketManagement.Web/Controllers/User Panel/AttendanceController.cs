@@ -22,8 +22,8 @@ public class AttendanceController : BaseController
 
     #region add
 
-    [HttpGet("add")]
-    public async Task<IActionResult> AddAttendance()
+    [HttpPost("add")]
+    public async Task<IActionResult> AddAttendance(string returnUrl)
     {
         var attendance = new AdminAttendance
         {
@@ -33,38 +33,29 @@ public class AttendanceController : BaseController
         if (await _adminService.AddAttendance(attendance))
         {
             TempData[SuccessMessage] = "شروع ساعت کاری جدید";
-            return Ok();
+            return Redirect(returnUrl);
         }
 
         TempData[ErrorMessage] = "خطا در ثبت ساعت کاری";
-        return Ok();
+        return Redirect(returnUrl);
     }
 
     #endregion
 
     #region close
 
-    [HttpGet("close/{attendanceId}")]
-    public async Task<IActionResult> CloseAttendance(int attendanceId)
+    [HttpPost("close")]
+    public async Task<IActionResult> CloseAttendance(string returnUrl)
     {
+        var attendanceId = await _adminService.GetAdminUnClosedAttendanceId(User.GetUserId());
         if (await _adminService.CloseAttendance(attendanceId))
         {
             TempData[SuccessMessage] = "بستن ساعت کاری با موفقیت انجام شد";
-            return Ok();
-        }
-        var attendance = new AdminAttendance
-        {
-            AdminId = User.GetUserId()
-        };
-
-        if (await _adminService.AddAttendance(attendance))
-        {
-            TempData[SuccessMessage] = "شروع ساعت کاری جدید";
-            return Ok();
+            return Redirect(returnUrl);
         }
 
-        TempData[ErrorMessage] = "خطا در ثبت ساعت کاری";
-        return Ok();
+        TempData[ErrorMessage] = "خطا در بستن ساعت کاری";
+        return Redirect(returnUrl);
     }
 
     #endregion

@@ -72,33 +72,24 @@
                                             <p><strong>پست: </strong> مدیر </p>
                                             <ul class="list-unstyled">
                                                 <li><i class="fa fa-id-badge"></i> شناسه: @manager.ManagerId</li>
-                                                <li><i class="fa fa-try"></i> زمان کار : @manager.CreateDate.GetWorkDaysUntilNow() روز</li>
-                                                <li><i class="fa fa-try"></i> تایم کاری امروز : @manager.TodayWorkTimeMinutes.ToWorkTimeFormat() </li>
+                                                <li><i class="fa fa-clock-o"></i> تایم کاری امروز : @manager.TodayWorkTimeMinutes.ToWorkTimeFormat() </li>
                                             </ul>
                                         </div>
                                         <div class="right col-xs-5 text-center">
                                             <img src="/build/images/user.png" alt="" class="img-circle img-responsive">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 bottom text-center">
+                                    <div class="col-md-12 col-xs-12 bottom text-center">
                                         <div class="col-xs-12 col-sm-6 emphasis">
-                                            <p class="ratings">
-                                                <a>4.0</a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star"></span></a>
-                                                <a href="#"><span class="fa fa-star-o"></span></a>
-                                            </p>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 emphasis">
-                                            <button type="button" class="btn btn-success btn-xs">
-                                                <i class="fa fa-user">
-                                                </i> <i class="fa fa-comments-o"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-primary btn-xs">
-                                                <i class="fa fa-user"> </i> مشاهد حساب
-                                            </button>
+                                            <a class="btn btn-primary btn-block">
+                                                <i class="fa fa-user"> </i> مشاهده حساب
+                                            </a>
+                                            <a asp-controller="Manager" asp-action="Edit" asp-route-adminId="@manager.ManagerId" class="btn btn-warning btn-sm btn-block">
+                                                <i class="fa fa-edit"> </i> ویرایش
+                                            </a>
+                                            <a onclick="DeleteManagerSwal(@manager.ManagerId)" class="btn btn-danger btn-sm btn-block">
+                                                <i class="fa fa-trash"> </i> حذف
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

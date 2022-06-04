@@ -9,8 +9,6 @@ public interface IAdminService
 {
     Task<AddAdminResult> AddAdmin(Admin admin);
 
-    Task<bool> EditAdmin(Admin admin);
-
     Task<bool> DeleteAdmin(int adminId);
     
     Task<Admin?> GetAdminById(int adminId);
@@ -27,12 +25,17 @@ public interface IAdminService
     
     Task<AdminInfoDto?> GetAdminInfoByUserName(string userName);
 
+    Task<AdminInfoForEdit?> GetAdminInfoForEdit(int adminId);
+
+    Task<bool> EditManager(AdminInfoForEdit infoForEdit);
+
     #region AdminAttendance
 
     Task<bool> AddAttendance(AdminAttendance attendance);
     Task<bool> UpdateAttendance(AdminAttendance attendance);
     Task<bool> CloseAttendance(int attendanceId);
-    Task<int> CalculateAdminTodayWorkTime(int adminId);
+    Task<bool> IsAdminHaveUnClosedAttendance(int adminId);
+    Task<int> GetAdminUnClosedAttendanceId(int adminId);
 
     #endregion
 }

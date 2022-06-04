@@ -39,11 +39,6 @@ namespace SuperMarketManagement.Application.Services.User
             return AddAdminResult.Error;
         }
 
-        public async Task<bool> EditAdmin(Admin admin)
-        {
-            return await _adminRepository.UpdateAdmin(admin);
-        }
-
         public async Task<bool> DeleteAdmin(int adminId)
         {
             var admin = await _adminRepository.GetAdminById(adminId);
@@ -75,7 +70,8 @@ namespace SuperMarketManagement.Application.Services.User
                     Password = a.Password,
                     UserName = a.UserName,
                     ManagerId = a.Id,
-                    CreateDate = a.CreatedDate
+                    CreateDate = a.CreatedDate,
+                    TodayWorkTimeMinutes = CalculateAdminTodayWorkTime(a.Id)
                 }).ToList();
         }
 
@@ -93,7 +89,9 @@ namespace SuperMarketManagement.Application.Services.User
                 Password = admin.Password,
                 CreateDate = admin.CreatedDate,
                 ManagerId = admin.Id,
-                TodayWorkTimeMinutes = await CalculateAdminTodayWorkTime(adminId)
+                TodayWorkTimeMinutes = CalculateAdminTodayWorkTime(adminId),
+                AllWorkDays = CalculateAdminAllWorkDays(adminId),
+                UnClosedAttendanceDate = _adminRepository.GetAdminUnClosedAttendanceDate(admin.Id)
             };
         }
 
@@ -140,6 +138,41 @@ namespace SuperMarketManagement.Application.Services.User
             };
         }
 
+        public async Task<AdminInfoForEdit?> GetAdminInfoForEdit(int adminId)
+        {
+            var admin = await _adminRepository.GetAdminById(adminId);
+            if (admin == null)
+            {
+                return null;
+            }
+
+            return new AdminInfoForEdit
+            {
+                Id = admin.Id,
+                UserName = admin.UserName
+            };
+        }
+
+        public async Task<bool> EditManager(AdminInfoForEdit infoForEdit)
+        {
+            var admin = await _adminRepository.GetAdminById(infoForEdit.Id);
+            if (admin == null)
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(infoForEdit.UserName))
+            {
+                admin.UserName = infoForEdit.UserName;
+            }
+            if (!string.IsNullOrEmpty(infoForEdit.Password))
+            {
+                admin.Password = PasswordHasher.HashWithAragon2(infoForEdit.Password);
+            }
+
+            return await _adminRepository.UpdateAdmin(admin);
+        }
+
         public async Task<bool> AddAttendance(AdminAttendance attendance)
         {
             return await _adminRepository.AddAttendance(attendance);
@@ -172,7 +205,18 @@ namespace SuperMarketManagement.Application.Services.User
             return await _adminRepository.CloseAttendance(attendance);
         }
 
-        public async Task<int> CalculateAdminTodayWorkTime(int adminId)
+        public async Task<bool> IsAdminHaveUnClosedAttendance(int adminId)
+        {
+            return await _adminRepository.IsAdminHaveUnClosedAttendance(adminId);
+        }
+
+        public async Task<int> GetAdminUnClosedAttendanceId(int adminId)
+        {
+            var res = await _adminRepository.GetAdminUnClosedAttendance(adminId);
+            return res?.Id ?? default;
+        }
+
+        private int CalculateAdminTodayWorkTime(int adminId)
         {
             try
             {
@@ -181,7 +225,7 @@ namespace SuperMarketManagement.Application.Services.User
                 // filter admin today attendances
                 query = query.Where(q => q.StartDate.Date == DateTime.Now.Date);
 
-                var todayWorkTime = await query.SumAsync(a => a.WorkTimeMinutes);
+                var todayWorkTime = query.Sum(a => a.WorkTimeMinutes);
 
                 // pattern :
                 // if todayWorkTime is not null, return todayWorkTime
@@ -189,6 +233,32 @@ namespace SuperMarketManagement.Application.Services.User
                 return todayWorkTime ?? default;
             }
             // if query is null, come into catch and return 0
+            catch (ArgumentOutOfRangeException)
+            {
+                return default;
+            }
+        }
+
+        private int CalculateAdminAllWorkDays(int adminId)
+        {
+            try
+            {
+                var query = _adminRepository.GetAdminAttendances(adminId).ToList();
+                var workDays = query.Count(q => q.CreatedDate.Date <= DateTime.Now.Date);
+
+                for (var i = 0; i < workDays; i++)
+                {
+                    for (var j = i + 1; j < workDays; j++)
+                    {
+                        if (query.ElementAt(i).CreatedDate.Date == query.ElementAt(j).CreatedDate.Date)
+                        {
+                            workDays--;
+                        }
+                    }
+                }
+
+                return workDays;
+            }
             catch (ArgumentOutOfRangeException)
             {
                 return default;

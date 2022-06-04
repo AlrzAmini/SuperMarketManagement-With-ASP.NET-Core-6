@@ -10,6 +10,8 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="HtmlSanitizer" Version="7.1.488" />
     <PackageReference Include="Isopoh.Cryptography.Argon2" Version="1.1.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Product\" />
+    <Folder Include="Utilities\Extensions\HttpExtension\" />
     <Folder Include="Utilities\Generators\" />
   </ItemGroup>
 

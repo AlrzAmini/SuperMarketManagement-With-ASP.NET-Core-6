@@ -121,5 +121,20 @@ namespace SuperMarketManagement.Data.Repositories.User
             return _context.AdminAttendances
                 .Where(a => a.AdminId == adminId);
         }
+
+        public async Task<bool> IsAdminHaveUnClosedAttendance(int adminId)
+        {
+            return await _context.AdminAttendances.AnyAsync(a => a.AdminId == adminId && !a.IsClosed);
+        }
+
+        public DateTime? GetAdminUnClosedAttendanceDate(int adminId)
+        {
+            return _context.AdminAttendances.FirstOrDefault(a => a.AdminId == adminId && !a.IsClosed)?.StartDate;
+        }
+
+        public async Task<AdminAttendance?> GetAdminUnClosedAttendance(int adminId)
+        {
+            return await _context.AdminAttendances.FirstOrDefaultAsync(a => a.AdminId == adminId && !a.IsClosed);
+        }
     }
 }

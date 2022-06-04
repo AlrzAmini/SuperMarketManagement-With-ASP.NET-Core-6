@@ -50,6 +50,11 @@ namespace SuperMarketManagement.Application.Utilities.Extensions.Date
             return value.ToString("HH:mm");
         }
 
+        public static string? GetHourAndMinutes(this DateTime? value)
+        {
+            return value == null ? "" : value.Value.ToString("HH:mm");
+        }
+
         public static string ToIraniDate(this DateTime dt)
         {
             var pc = new PersianCalendar();
@@ -143,6 +148,6 @@ namespace SuperMarketManagement.Application.Utilities.Extensions.Date
                 > 60 => $"{value / 60} ساعت و {value % 60} دقیقه",
                 60 => "1 ساعت"
             };
-        }
+        }        
     }
 }

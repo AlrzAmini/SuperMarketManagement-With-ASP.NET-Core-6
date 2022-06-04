@@ -18,10 +18,10 @@ namespace SuperMarketManagement.Web.Controllers.User_Panel
 
         #endregion
 
-        [HttpGet("home/{adminId}")]
+        [HttpGet("profile/{adminId}")]
         public async Task<IActionResult> Index(int adminId)
         {
-            // if user wana to see another profiles
+            // if user want to see another profiles
             if (adminId != User.GetUserId())
             {
                 return BadRequest();
@@ -32,7 +32,8 @@ namespace SuperMarketManagement.Web.Controllers.User_Panel
             {
                 return NotFound(model);
             }
-            
+
+            ViewBag.HaveUnClosedAttendance = await _adminService.IsAdminHaveUnClosedAttendance(model.ManagerId);
             return View(model);
         }
     }

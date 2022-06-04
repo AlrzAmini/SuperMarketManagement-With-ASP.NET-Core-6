@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
 using SuperMarketManagement.Domain.Models.User;
 
@@ -63,7 +64,35 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region edit
 
+        [HttpGet("edit/{adminId}")]
+        public async Task<IActionResult> Edit(int adminId)
+        {
+            var model = await _adminService.GetAdminInfoForEdit(adminId);
+            if (model == null)
+            {
+                return NotFound(model);
+            }
 
+            return View(model);
+        }
+
+        [HttpPost("edit/{adminId}"),ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(AdminInfoForEdit infoForEdit)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(infoForEdit);
+            }
+            var result = await _adminService.EditManager(infoForEdit);
+            if (result)
+            {
+                TempData[SuccessMessage] = "با موفقیت ویرایش شد";
+                return RedirectToAction("Index");
+            }
+
+            TempData[ErrorMessage] = "مشکلی در ویرایش رخ داد";
+            return RedirectToAction("Edit", new { adminId = infoForEdit.Id });
+        }
 
         #endregion
 
