@@ -243,21 +243,10 @@ namespace SuperMarketManagement.Application.Services.User
         {
             try
             {
-                var query = _adminRepository.GetAdminAttendances(adminId).ToList();
-                var workDays = query.Count(q => q.CreatedDate.Date <= DateTime.Now.Date);
-
-                for (var i = 0; i < workDays; i++)
-                {
-                    for (var j = i + 1; j < workDays; j++)
-                    {
-                        if (query.ElementAt(i).CreatedDate.Date == query.ElementAt(j).CreatedDate.Date)
-                        {
-                            workDays--;
-                        }
-                    }
-                }
-
-                return workDays;
+                return _adminRepository.GetAdminAttendances(adminId)
+                    .AsEnumerable()
+                    .DistinctBy(q => q.StartDate.Date)
+                    .Count();
             }
             catch (ArgumentOutOfRangeException)
             {
