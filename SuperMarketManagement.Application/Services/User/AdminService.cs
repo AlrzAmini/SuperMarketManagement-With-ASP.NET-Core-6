@@ -71,7 +71,8 @@ namespace SuperMarketManagement.Application.Services.User
                     UserName = a.UserName,
                     ManagerId = a.Id,
                     CreateDate = a.CreatedDate,
-                    TodayWorkTimeMinutes = CalculateAdminTodayWorkTime(a.Id)
+                    TodayWorkTimeMinutes = CalculateAdminTodayWorkTime(a.Id),
+                    AllWorkDays = CalculateAdminAllWorkDays(a.Id)
                 }).ToList();
         }
 

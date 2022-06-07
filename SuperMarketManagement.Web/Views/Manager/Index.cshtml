@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-md-12 col-xs-12 bottom text-center">
                                         <div class="col-xs-12 col-sm-6 emphasis">
-                                            <a class="btn btn-primary btn-block">
+                                            <a asp-controller="Manager" asp-action="Details" asp-route-managerId="@manager.ManagerId" class="btn btn-primary btn-block">
                                                 <i class="fa fa-user"> </i> مشاهده حساب
                                             </a>
                                             <a asp-controller="Manager" asp-action="Edit" asp-route-adminId="@manager.ManagerId" class="btn btn-warning btn-sm btn-block">

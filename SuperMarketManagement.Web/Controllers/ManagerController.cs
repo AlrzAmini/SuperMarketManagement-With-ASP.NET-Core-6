@@ -8,12 +8,16 @@ namespace SuperMarketManagement.Web.Controllers
     [Route("managers")]
     public class ManagerController : BaseController
     {
+        #region constructor
+
         private readonly IAdminService _adminService;
 
         public ManagerController(IAdminService adminService)
         {
             _adminService = adminService;
         }
+
+        #endregion
 
         #region index
 
@@ -121,7 +125,17 @@ namespace SuperMarketManagement.Web.Controllers
 
         #region details
 
+        [HttpGet("details/{managerId}")]
+        public async Task<IActionResult> Details(int managerId)
+        {
+            var model = await _adminService.GetAdminInfoById(managerId);
+            if (model == null)
+            {
+                return NotFound(model);
+            }
 
+            return View(model);
+        }
 
         #endregion
     }
