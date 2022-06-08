@@ -34,6 +34,7 @@ namespace SuperMarketManagement.Web.Controllers.User_Panel
             }
 
             ViewBag.HaveUnClosedAttendance = await _adminService.IsAdminHaveUnClosedAttendance(model.ManagerId);
+            ViewBag.Attendances = await _adminService.GetAdminLast20Attendances(model.ManagerId);
             return View(model);
         }
     }

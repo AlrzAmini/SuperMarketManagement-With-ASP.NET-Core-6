@@ -36,6 +36,7 @@ public interface IAdminService
     Task<bool> CloseAttendance(int attendanceId);
     Task<bool> IsAdminHaveUnClosedAttendance(int adminId);
     Task<int> GetAdminUnClosedAttendanceId(int adminId);
+    Task<List<AdminAttendance>> GetAdminLast20Attendances(int adminId);
 
     #endregion
 }

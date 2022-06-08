@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using SuperMarketManagement.Application.DTOs.Account;
 using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
@@ -214,6 +215,13 @@ namespace SuperMarketManagement.Application.Services.User
         {
             var res = await _adminRepository.GetAdminUnClosedAttendance(adminId);
             return res?.Id ?? default;
+        }
+
+        public async Task<List<AdminAttendance>> GetAdminLast20Attendances(int adminId)
+        {
+            return await _adminRepository.GetAdminAttendancesQueryable(adminId)
+                .Take(20)
+                .ToListAsync();
         }
 
         private int CalculateAdminTodayWorkTime(int adminId)

@@ -142,7 +142,9 @@ namespace SuperMarketManagement.Data.Repositories.User
 
         public IQueryable<AdminAttendance> GetAdminAttendancesQueryable(int adminId)
         {
-            return _context.AdminAttendances.Where(a => a.AdminId == adminId);
+            return _context.AdminAttendances
+                .Where(a => a.AdminId == adminId)
+                .OrderByDescending(a => a.StartDate);
         }
     }
 }
