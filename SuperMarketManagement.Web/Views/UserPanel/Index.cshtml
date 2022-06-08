@@ -1,5 +1,6 @@
 ﻿@using SuperMarketManagement.Application.Utilities.Extensions.Date
 @using SuperMarketManagement.Application.Utilities.Extensions.HttpExtension
+@using SuperMarketManagement.Application.Consts
 @model SuperMarketManagement.Application.DTOs.User.AdminInfoDto
 @{
     ViewData["Title"] = "نمایه";
@@ -22,25 +23,23 @@
                     <div class="profile_img">
                         <div id="crop-avatar">
                             <!-- Current avatar -->
-                            <img class="img-responsive avatar-view" src="/build/images/user.png" alt="Avatar" title="avatar">
+                            <img class="img-responsive avatar-view" src="@DefaultPath.DefaultUserImage" alt="Avatar" title="avatar">
                         </div>
                     </div>
                     <h3>@Model.UserName</h3>
 
                     <ul class="list-unstyled user_data">
+                        <li class="m-top-xs">
+                            <i class="user-profile-icon"></i>شروع کار از :
+                            @Model.CreateDate.ToShamsi()
+                        </li>
                         <li>
                             <i class="user-profile-icon"></i> روز های کاری :
                             @Model.AllWorkDays
                         </li>
-
                         <li>
                             <i class="user-profile-icon"></i> تایم کاری امروز :
                             @Model.TodayWorkTimeMinutes.ToWorkTimeFormat()
-                        </li>
-
-                        <li class="m-top-xs">
-                            <i class="user-profile-icon"></i>شروع کار از :
-                            @Model.CreateDate.ToShamsi()
                         </li>
                     </ul>
 
@@ -84,7 +83,7 @@
 
                     <div class="profile_title">
                         <div class="col-md-6">
-                            <h2>گزارش فعالیت کاربر</h2>
+                            <h2>گزارش فعالیت </h2>
                         </div>
                         <div class="col-md-6">
                             <div id="reportrange" class="pull-left" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">

@@ -57,9 +57,9 @@ namespace SuperMarketManagement.Data.Repositories.User
 
         public async Task<List<Admin>> GetAdmins()
         {
-            return (await _context.Admins
-                .OrderByDescending(a => a!.CreatedDate)
-                .ToListAsync())!;
+            return await _context.Admins
+                .OrderByDescending(a => a.CreatedDate)
+                .ToListAsync();
         }
 
         public async Task<bool> IsUserNameExist(string userName)
@@ -116,12 +116,6 @@ namespace SuperMarketManagement.Data.Repositories.User
             return await _context.AdminAttendances.FindAsync(attendanceId);
         }
 
-        public IQueryable<AdminAttendance> GetAdminAttendances(int adminId)
-        {
-            return _context.AdminAttendances
-                .Where(a => a.AdminId == adminId);
-        }
-
         public async Task<bool> IsAdminHaveUnClosedAttendance(int adminId)
         {
             return await _context.AdminAttendances.AnyAsync(a => a.AdminId == adminId && !a.IsClosed);
@@ -135,6 +129,20 @@ namespace SuperMarketManagement.Data.Repositories.User
         public async Task<AdminAttendance?> GetAdminUnClosedAttendance(int adminId)
         {
             return await _context.AdminAttendances.FirstOrDefaultAsync(a => a.AdminId == adminId && !a.IsClosed);
+        }
+
+        public int CalculateAdminAllWorkDays(int adminId)
+        {
+            return _context.AdminAttendances
+                .Where(a => a.AdminId == adminId)
+                .AsEnumerable()
+                .DistinctBy(q => q.StartDate.Date)
+                .Count();
+        }
+
+        public IQueryable<AdminAttendance> GetAdminAttendancesQueryable(int adminId)
+        {
+            return _context.AdminAttendances.Where(a => a.AdminId == adminId);
         }
     }
 }

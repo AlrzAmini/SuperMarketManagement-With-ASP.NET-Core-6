@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
 using SuperMarketManagement.Application.DTOs.Account;
 using SuperMarketManagement.Application.DTOs.User;
 using SuperMarketManagement.Application.Interfaces.User;
@@ -72,7 +71,7 @@ namespace SuperMarketManagement.Application.Services.User
                     ManagerId = a.Id,
                     CreateDate = a.CreatedDate,
                     TodayWorkTimeMinutes = CalculateAdminTodayWorkTime(a.Id),
-                    AllWorkDays = CalculateAdminAllWorkDays(a.Id)
+                    AllWorkDays = _adminRepository.CalculateAdminAllWorkDays(a.Id)
                 }).ToList();
         }
 
@@ -91,7 +90,7 @@ namespace SuperMarketManagement.Application.Services.User
                 CreateDate = admin.CreatedDate,
                 ManagerId = admin.Id,
                 TodayWorkTimeMinutes = CalculateAdminTodayWorkTime(adminId),
-                AllWorkDays = CalculateAdminAllWorkDays(adminId),
+                AllWorkDays = _adminRepository.CalculateAdminAllWorkDays(adminId),
                 UnClosedAttendanceDate = _adminRepository.GetAdminUnClosedAttendanceDate(admin.Id)
             };
         }
@@ -221,7 +220,7 @@ namespace SuperMarketManagement.Application.Services.User
         {
             try
             {
-                var query = _adminRepository.GetAdminAttendances(adminId);
+                var query = _adminRepository.GetAdminAttendancesQueryable(adminId);
 
                 // filter admin today attendances
                 query = query.Where(q => q.StartDate.Date == DateTime.Now.Date);
@@ -234,21 +233,6 @@ namespace SuperMarketManagement.Application.Services.User
                 return todayWorkTime ?? default;
             }
             // if query is null, come into catch and return 0
-            catch (ArgumentOutOfRangeException)
-            {
-                return default;
-            }
-        }
-
-        private int CalculateAdminAllWorkDays(int adminId)
-        {
-            try
-            {
-                return _adminRepository.GetAdminAttendances(adminId)
-                    .AsEnumerable()
-                    .DistinctBy(q => q.StartDate.Date)
-                    .Count();
-            }
             catch (ArgumentOutOfRangeException)
             {
                 return default;

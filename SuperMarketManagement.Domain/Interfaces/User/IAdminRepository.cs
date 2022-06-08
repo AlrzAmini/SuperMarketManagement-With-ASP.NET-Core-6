@@ -27,10 +27,11 @@ public interface IAdminRepository
     Task<bool> UpdateAttendance(AdminAttendance attendance);    
     Task<bool> CloseAttendance(AdminAttendance attendance);    
     Task<AdminAttendance?> GetAttendanceById(int attendanceId);
-    IQueryable<AdminAttendance> GetAdminAttendances(int adminId);
     Task<bool> IsAdminHaveUnClosedAttendance(int adminId);
     DateTime? GetAdminUnClosedAttendanceDate(int adminId);
     Task<AdminAttendance?> GetAdminUnClosedAttendance(int adminId);
+    int CalculateAdminAllWorkDays(int adminId);
+    IQueryable<AdminAttendance> GetAdminAttendancesQueryable(int adminId);
 
     #endregion
 }
