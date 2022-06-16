@@ -1,0 +1,90 @@
+﻿@model SuperMarketManagement.Application.DTOs.Product.CreateProductDto
+@{
+    ViewData["Title"] = "افزودن محصول";
+}
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}
+<div class="col-md-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                عناصر فرم اولیه
+                <small>عناصر فرم های مختلف</small>
+            </h2>
+            <partial name="Partials/_PanelToolBox" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <form class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input asp-for="Title" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input asp-for="Price" class="form-control" placeholder="به تومان">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Weight" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input asp-for="Weight" class="form-control" placeholder="به گرم">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">دسته بندی</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input asp-for="GroupId" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label col-md-3 col-sm-3 col-xs-12">
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">رمز ورود</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="password" class="form-control" value="passwordonetwo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">تکمیل خودکار</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" name="country" id="autocomplete-custom-append" class="form-control col-md-10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">انتخاب</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control">
+                            <option>انتخاب گزینه</option>
+                            <option>گزینه اول</option>
+                            <option>گزینه دوم</option>
+                            <option>گزینه سوم</option>
+                            <option>گزینه چهارم</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary">انصراف</button>
+                        <button type="submit" class="btn btn-success">ارسال</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

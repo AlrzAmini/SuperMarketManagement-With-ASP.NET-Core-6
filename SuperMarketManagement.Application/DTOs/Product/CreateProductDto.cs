@@ -1,15 +1,20 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using SuperMarketManagement.Domain.Models.Base;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SuperMarketManagement.Domain.Models.Product;
 
-namespace SuperMarketManagement.Domain.Models.Product
+namespace SuperMarketManagement.Application.DTOs.Product
 {
-    public class Product : BaseEntity
+    public class CreateProductDto
     {
         #region properties
 
         public int GroupId { get; set; }
-        
+
         public int SizeId { get; set; }
 
         [DisplayName("عنوان کالا")]
@@ -31,16 +36,26 @@ namespace SuperMarketManagement.Domain.Models.Product
         [MaxLength(800, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر داشته باشد")]
         public string? Description { get; set; }
 
-        public bool IsDeleted { get; set; }
+        [DisplayName("طول")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
+        public int Length { get; set; }
+
+        [DisplayName("عرض")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
+        public int Width { get; set; }
+
+        [DisplayName("ارتفاع")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
+        public int Height { get; set; }
 
         #endregion
+    }
 
-        #region relations
-
-        public ProductGroup? Group { get; set; }
-
-        public ProductSize? Size { get; set; }
-
-        #endregion
+    public enum CreateProductResult
+    {
+        Success,
+        Error,
+        SizeError,
+        GroupError,
     }
 }

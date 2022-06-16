@@ -65,3 +65,11 @@
 .swal-wide {
     width: 500px !important;
 }
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px !important;
+}

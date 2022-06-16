@@ -8,7 +8,7 @@ public interface IProductRepository
 
     Task<List<ProductGroup>> GetAllProductGroups();
 
-    Task<ProductGroup> GetProductGroupById(int groupId);
+    Task<ProductGroup?> GetProductGroupById(int groupId);
 
     Task<bool> AddProductGroup(ProductGroup productGroup);
 
@@ -20,13 +20,29 @@ public interface IProductRepository
 
     #region product
 
+    Task<List<Models.Product.Product>> GetAllProduct();
 
+    Task<Models.Product.Product?> GetProductById(int productId);
+
+    Task<bool> AddProduct(Models.Product.Product product);
+
+    Task<bool> UpdateProduct(Models.Product.Product product);
+
+    Task<bool> DeleteProduct(Models.Product.Product product);
 
     #endregion
 
     #region product size
 
+    Task<List<ProductSize>> GetAllProductSizes();
 
+    Task<ProductSize?> GetProductSizeById(int productSizeId);
+
+    Task<int> AddProductSize(ProductSize productSize);
+
+    Task<bool> UpdateProductSize(ProductSize productSize);
+
+    Task<bool> DeleteProductSize(ProductSize productSize);
 
     #endregion
 }

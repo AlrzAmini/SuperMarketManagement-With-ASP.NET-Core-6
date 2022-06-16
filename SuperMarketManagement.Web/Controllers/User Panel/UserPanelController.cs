@@ -26,7 +26,7 @@ namespace SuperMarketManagement.Web.Controllers.User_Panel
             {
                 return BadRequest();
             }
-            
+
             var model = await _adminService.GetAdminInfoById(adminId);
             if (model == null)
             {
